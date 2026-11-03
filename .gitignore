@@ -48,3 +48,11 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# local SQLite database + litestream state
+/data/
+*.db
+*.db-shm
+*.db-wal
+.env.*
+!.env.example

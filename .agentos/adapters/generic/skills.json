@@ -1,0 +1,227 @@
+{
+  "adapter": "generic",
+  "skills": [
+    {
+      "name": "architecture-review",
+      "description": "Assess a codebase's structure - module boundaries, dependency direction, layering and coupling - and report violations with evidence.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": true,
+      "permissions": [
+        "fs.read"
+      ],
+      "requires": [],
+      "optional_recommends": [
+        "domain-modeling"
+      ],
+      "tools": [],
+      "level": "project",
+      "path": ".agents/skills/architecture-review/SKILL.md"
+    },
+    {
+      "name": "code-review",
+      "description": "Review a set of code changes for correctness, tests, readability and adherence to project standards, reporting findings by severity.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": true,
+      "permissions": [
+        "fs.read",
+        "shell"
+      ],
+      "requires": [],
+      "optional_recommends": [
+        "architecture-review",
+        "tdd"
+      ],
+      "tools": [
+        "vcs"
+      ],
+      "level": "project",
+      "path": ".agents/skills/code-review/SKILL.md"
+    },
+    {
+      "name": "domain-modeling",
+      "description": "Build or sharpen the domain model - ubiquitous language, bounded contexts, aggregates and invariants - and record it as reviewable markdown.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": true,
+      "permissions": [
+        "fs.read",
+        "fs.write"
+      ],
+      "requires": [],
+      "optional_recommends": [
+        "grilling"
+      ],
+      "tools": [],
+      "level": "project",
+      "path": ".agents/skills/domain-modeling/SKILL.md"
+    },
+    {
+      "name": "engineering-router",
+      "description": "Recommend the engineering skill that fits a goal (research, grilling, modelling, design, TDD, implementation, review, architecture) using each skill's declared triggers.",
+      "version": "0.1.0",
+      "kind": "router",
+      "user_invocable": true,
+      "model_invocable": false,
+      "permissions": [],
+      "requires": [],
+      "optional_recommends": [],
+      "tools": [],
+      "level": "project",
+      "path": ".agents/skills/engineering-router/SKILL.md"
+    },
+    {
+      "name": "grilling",
+      "description": "Stress-test a plan, design or decision by asking hard questions one at a time until its assumptions and risks are explicit.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": false,
+      "permissions": [
+        "fs.read"
+      ],
+      "requires": [],
+      "optional_recommends": [
+        "research",
+        "domain-modeling"
+      ],
+      "tools": [],
+      "level": "project",
+      "path": ".agents/skills/grilling/SKILL.md"
+    },
+    {
+      "name": "implementation",
+      "description": "Implement a scoped change end to end - plan the steps, make small verified edits, and leave the build and tests green.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": true,
+      "permissions": [
+        "fs.read",
+        "fs.write",
+        "shell"
+      ],
+      "requires": [],
+      "optional_recommends": [
+        "tdd",
+        "code-review"
+      ],
+      "tools": [
+        "test-runner",
+        "build"
+      ],
+      "level": "project",
+      "path": ".agents/skills/implementation/SKILL.md"
+    },
+    {
+      "name": "improve-codebase-architecture",
+      "description": "Improve the structure of a codebase in small, behaviour-preserving steps - deepen shallow modules, fix dependency direction, reduce coupling.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": false,
+      "permissions": [
+        "fs.read",
+        "fs.write",
+        "shell"
+      ],
+      "requires": [
+        "architecture-review"
+      ],
+      "optional_recommends": [
+        "interface-design"
+      ],
+      "tools": [
+        "test-runner",
+        "vcs"
+      ],
+      "level": "project",
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md"
+    },
+    {
+      "name": "interface-design",
+      "description": "Design a small, deep public interface (API, trait, module boundary) and its contract tests before any implementation exists.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": true,
+      "permissions": [
+        "fs.read",
+        "fs.write"
+      ],
+      "requires": [],
+      "optional_recommends": [
+        "domain-modeling"
+      ],
+      "tools": [],
+      "level": "project",
+      "path": ".agents/skills/interface-design/SKILL.md"
+    },
+    {
+      "name": "research",
+      "description": "Answer a technical question from high-trust primary sources (official docs, specs, source code) and record the findings with citations.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": true,
+      "permissions": [
+        "fs.read",
+        "network"
+      ],
+      "requires": [],
+      "optional_recommends": [
+        "grilling"
+      ],
+      "tools": [
+        "web-search",
+        "web-fetch"
+      ],
+      "level": "project",
+      "path": ".agents/skills/research/SKILL.md"
+    },
+    {
+      "name": "setup-agentos",
+      "description": "First-run setup for AgentOS. Check whether the CLI is installed, initialize the current project, and explain permissions without overwriting user files.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": false,
+      "permissions": [
+        "fs.read"
+      ],
+      "requires": [],
+      "optional_recommends": [],
+      "tools": [],
+      "level": "project",
+      "path": ".agents/skills/setup-agentos/SKILL.md"
+    },
+    {
+      "name": "tdd",
+      "description": "Test-driven development - write a failing test first, make it pass with the smallest change, then refactor, one behaviour at a time.",
+      "version": "0.1.0",
+      "kind": "skill",
+      "user_invocable": true,
+      "model_invocable": true,
+      "permissions": [
+        "fs.read",
+        "fs.write",
+        "shell"
+      ],
+      "requires": [
+        "interface-design"
+      ],
+      "optional_recommends": [
+        "code-review"
+      ],
+      "tools": [
+        "test-runner"
+      ],
+      "level": "project",
+      "path": ".agents/skills/tdd/SKILL.md"
+    }
+  ]
+}

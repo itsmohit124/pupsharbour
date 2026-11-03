@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "files": {
+    ".agentos/adapters/generic/INSTRUCTIONS.md": {
+      "adapter": "generic",
+      "created": true,
+      "policy": "markers",
+      "separator": "",
+      "prelude": "",
+      "original": null,
+      "generated": null
+    },
+    ".agentos/adapters/generic/skills.json": {
+      "adapter": "generic",
+      "created": true,
+      "policy": "whole",
+      "separator": "",
+      "prelude": "",
+      "original": null,
+      "generated": ".agentos/adapters/generated/generic/.agentos/adapters/generic/skills.json"
+    },
+    ".cursor/rules/agentos.mdc": {
+      "adapter": "cursor",
+      "created": true,
+      "policy": "markers",
+      "separator": "",
+      "prelude": "---\ndescription: Use AgentOS for project context, validation, and skill invocation policy. This rule does not execute commands.\nalwaysApply: true\n---\n",
+      "original": null,
+      "generated": null
+    }
+  },
+  "dirs": {
+    ".agentos/adapters/generic": "generic",
+    ".cursor": "cursor",
+    ".cursor/rules": "cursor"
+  }
+}
