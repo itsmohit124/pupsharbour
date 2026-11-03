@@ -1,67 +1,50 @@
-# Payload Blank Template
+# Pups Harbour Consultancy: website + admin
 
-This template comes configured with the bare minimum to get started on anything you need.
+The public website for **pupsharbour.com** plus a WordPress-style admin panel (`/admin`) where staff
+manage every page, section and item of content. Built with Next.js 16, Payload CMS 3, SQLite/libSQL
+and Tailwind CSS 4.
 
 ## Quick start
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+```bash
+npm install
+cp .env.example .env                  # then set PAYLOAD_SECRET (openssl rand -hex 32)
+# first run only: create the first super admin from env (min 14-char password)
+BOOTSTRAP_ADMIN_EMAIL=you@example.com BOOTSTRAP_ADMIN_PASSWORD='a-long-password' \
+BOOTSTRAP_ADMIN_NAME='Your Name' npm run dev
+npm run seed                          # load all site content (only if the site is empty)
+```
 
-## Quick Start - local setup
+Open http://localhost:3000 (site) and http://localhost:3000/admin (admin).
 
-To spin up this template locally, follow these steps:
+| Command | What it does |
+|---|---|
+| `npm run dev` | Development server |
+| `npm run seed` | Load the initial content from `src/seed/` (skips if pages exist) |
+| `SEED_RESET=1 npm run seed` | Recreate **website content only** (users, submissions, media untouched) |
+| `npm run check` | Lint + typecheck + unit + integration tests |
+| `npx playwright test` | Browser smoke tests against a running, seeded site |
 
-### Clone
+## Pages
+Home · About · Services (+ a detail page per service) · Approach · Industries · Insights (+ articles)
+· Careers (resume form) · Contact (business enquiry form) · Privacy · Terms · Disclaimer.
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+## What staff can do in `/admin`
+- **Pages:** every page is a stack of sections (hero, stats, pillars, feature grid, process, packages,
+  industries, live demo, testimonials, forms, CTA…). Add, reorder, duplicate, **hide** or delete
+  sections, and edit or remove any item inside them. Save drafts, preview, publish, and restore old
+  versions.
+- **Services / Service groups / Industries / Insights / Testimonials / Media:** structured content
+  used across the site (menus, footer, cards and detail pages update automatically).
+- **Website settings:** phone, WhatsApp, email, hours, menu, header buttons, footer links.
+- **Submissions:** business enquiries and job applications (with private resume downloads), each
+  with a status workflow and internal notes. New submissions also trigger an email alert.
+- **Staff users & Audit log:** roles and permissions are listed in [docs/permissions.md](docs/permissions.md).
 
-### Development
+Editors cannot inject HTML or CSS. Every section has a fixed design, so the site stays consistent.
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
-
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
-
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
-
-#### Docker (Optional)
-
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
-
-To do so, follow these steps:
-
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
-
-## How it works
-
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
-
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
-
-- #### Users (Authentication)
-
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/3.x/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+## Docs
+- [docs/content/source.md](docs/content/source.md): original copy (from the planning chats + design references)
+- [docs/design/brand.md](docs/design/brand.md): colours, type and layout decisions (logo: `public/brand/`)
+- [docs/permissions.md](docs/permissions.md): roles, what each can do, first-user bootstrap
+- [docs/adr/0001-stack.md](docs/adr/0001-stack.md): why this stack

@@ -7,8 +7,16 @@ import { fileURLToPath } from 'url'
 
 import { runBootstrap } from './auth/runBootstrap'
 import { AuditLogs } from './collections/AuditLogs'
+import { Industries } from './collections/Industries'
+import { Insights } from './collections/Insights'
 import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { ServiceGroups } from './collections/ServiceGroups'
+import { Services } from './collections/Services'
+import { Applications, Enquiries, Resumes } from './collections/submissions'
+import { Testimonials } from './collections/Testimonials'
 import { Users } from './collections/Users'
+import { Footer, Header, SiteSettings } from './globals'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,10 +42,24 @@ export default buildConfig({
   csrf: allowedOrigins,
   admin: {
     user: Users.slug,
-    meta: { titleSuffix: ' · Pups Harbour Admin' },
+    meta: {
+      titleSuffix: ' · Pups Harbour Admin',
+      icons: [{ rel: 'icon', type: 'image/png', url: '/brand/favicon-32.png' }],
+    },
     importMap: { baseDir: path.resolve(dirname) },
+    components: {
+      graphics: {
+        Logo: '/components/admin/Brand#AdminLogo',
+        Icon: '/components/admin/Brand#AdminIcon',
+      },
+    },
   },
-  collections: [Media, Users, AuditLogs],
+  collections: [
+    Pages, Services, ServiceGroups, Industries, Insights, Testimonials, Media,
+    Enquiries, Applications, Resumes,
+    Users, AuditLogs,
+  ],
+  globals: [SiteSettings, Header, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },

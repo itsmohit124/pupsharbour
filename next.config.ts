@@ -10,11 +10,7 @@ const nextConfig: NextConfig = {
   // Dev server only: allow HMR/assets when previewing through a Cloudflare quick tunnel.
   allowedDevOrigins: ['*.trycloudflare.com'],
   images: {
-    localPatterns: [
-      {
-        pathname: '/api/media/file/**',
-      },
-    ],
+    localPatterns: [{ pathname: '/api/media/file/**' }, { pathname: '/brand/**' }],
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {

@@ -67,7 +67,16 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    pages: Page;
+    services: Service;
+    'service-groups': ServiceGroup;
+    industries: Industry;
+    insights: Insight;
+    testimonials: Testimonial;
     media: Media;
+    enquiries: Enquiry;
+    applications: Application;
+    resumes: Resume;
     users: User;
     'audit-logs': AuditLog;
     'payload-kv': PayloadKv;
@@ -75,9 +84,22 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    'service-groups': {
+      services: 'services';
+    };
+  };
   collectionsSelect: {
+    pages: PagesSelect<false> | PagesSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    'service-groups': ServiceGroupsSelect<false> | ServiceGroupsSelect<true>;
+    industries: IndustriesSelect<false> | IndustriesSelect<true>;
+    insights: InsightsSelect<false> | InsightsSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    enquiries: EnquiriesSelect<false> | EnquiriesSelect<true>;
+    applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
+    resumes: ResumesSelect<false> | ResumesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'audit-logs': AuditLogsSelect<false> | AuditLogsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -89,8 +111,16 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+    header: Header;
+    footer: Footer;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -118,6 +148,223 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * Each page is a stack of sections. Add, reorder, hide or remove sections and edit every item inside them.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * URL: /<slug>. Use "home" for the homepage.
+   */
+  slug: string;
+  layout?:
+    | (
+        | HeroBlock
+        | PageHeaderBlock
+        | StatsBlock
+        | RichContentBlock
+        | PillarsBlock
+        | FeaturesBlock
+        | ServiceEcosystemBlock
+        | ServicesDetailBlock
+        | ProcessBlock
+        | PackagesBlock
+        | ListBlock
+        | VisionMissionBlock
+        | IndustriesBlock
+        | LiveDemoBlock
+        | TestimonialsBlock
+        | InsightsListBlock
+        | CtaBlock
+        | EnquiryFormBlock
+        | ApplicationFormBlock
+        | ContactInfoBlock
+      )[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  body?: string | null;
+  primaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Labels along the lighthouse light-path.
+   */
+  waypoints?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  highlights?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        title: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional photo. Without one, the lighthouse illustration is shown.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -166,6 +413,1456 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeaderBlock".
+ */
+export interface PageHeaderBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  /**
+   * Shown above the title, e.g. "About Us".
+   */
+  breadcrumb?: string | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pageHeader';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock".
+ */
+export interface StatsBlock {
+  items?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'stats';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichContentBlock".
+ */
+export interface RichContentBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  paragraphs?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  bullets?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Emphasised closing line.
+   */
+  closing?: string | null;
+  layout?: ('centered' | 'split') | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'richContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PillarsBlock".
+ */
+export interface PillarsBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  items?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pillars';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesBlock".
+ */
+export interface FeaturesBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  items?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  columns?: ('2' | '3' | '4') | null;
+  variant?: ('cards' | 'aside') | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'features';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceEcosystemBlock".
+ */
+export interface ServiceEcosystemBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  centerLabel?: string | null;
+  /**
+   * List the services under each group.
+   */
+  showServices?: boolean | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceEcosystem';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesDetailBlock".
+ */
+export interface ServicesDetailBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesDetail';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessBlock".
+ */
+export interface ProcessBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  steps?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        title: string;
+        subtitle?: string | null;
+        description?: string | null;
+        activities?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  showActivities?: boolean | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'process';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackagesBlock".
+ */
+export interface PackagesBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  tiers?:
+    | {
+        name: string;
+        subtitle?: string | null;
+        description?: string | null;
+        /**
+         * e.g. "Everything in Basic, plus:"
+         */
+        includesPrevious?: string | null;
+        items?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        featured?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  note?: string | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'packages';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListBlock".
+ */
+export interface ListBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  items?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  variant?: ('checks' | 'chips' | 'tiles') | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'list';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VisionMissionBlock".
+ */
+export interface VisionMissionBlock {
+  visionHeading?: string | null;
+  vision: string;
+  missionHeading?: string | null;
+  mission?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'visionMission';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IndustriesBlock".
+ */
+export interface IndustriesBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  variant?: ('strip' | 'detailed') | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'industries';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LiveDemoBlock".
+ */
+export interface LiveDemoBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  modules?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'liveDemo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  /**
+   * This section hides itself while no testimonials are published.
+   */
+  note?: string | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InsightsListBlock".
+ */
+export interface InsightsListBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  limit?: number | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'insightsList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaBlock".
+ */
+export interface CtaBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  primaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  showWhatsApp?: boolean | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EnquiryFormBlock".
+ */
+export interface EnquiryFormBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  submitLabel?: string | null;
+  successMessage?: string | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'enquiryForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ApplicationFormBlock".
+ */
+export interface ApplicationFormBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  submitLabel?: string | null;
+  note?: string | null;
+  successMessage?: string | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'applicationForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock".
+ */
+export interface ContactInfoBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Words at the end of the heading shown in gold (optional).
+   */
+  highlight?: string | null;
+  intro?: string | null;
+  closing?: string | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactInfo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: number;
+  title: string;
+  /**
+   * Used in menus and the footer.
+   */
+  shortTitle?: string | null;
+  /**
+   * URL segment. Auto-filled from the title.
+   */
+  slug: string;
+  group: number | ServiceGroup;
+  flagship?: boolean | null;
+  /**
+   * Pick from the curated icon set.
+   */
+  icon:
+    | 'anchor'
+    | 'award'
+    | 'badge'
+    | 'boxes'
+    | 'briefcase'
+    | 'building'
+    | 'calculator'
+    | 'calendar'
+    | 'chart'
+    | 'clipboard'
+    | 'compass'
+    | 'crown'
+    | 'eye'
+    | 'factory'
+    | 'document'
+    | 'flag'
+    | 'gauge'
+    | 'gavel'
+    | 'globe'
+    | 'graduation'
+    | 'handshake'
+    | 'hardhat'
+    | 'heart'
+    | 'laptop'
+    | 'layers'
+    | 'lightbulb'
+    | 'pin'
+    | 'megaphone'
+    | 'network'
+    | 'package'
+    | 'palette'
+    | 'puzzle'
+    | 'rocket'
+    | 'scale'
+    | 'scroll'
+    | 'search'
+    | 'settings'
+    | 'shield'
+    | 'cart'
+    | 'sparkles'
+    | 'target'
+    | 'trending'
+    | 'usercheck'
+    | 'usersearch'
+    | 'users'
+    | 'team'
+    | 'wallet'
+    | 'workflow';
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  summary: string;
+  items?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  focus?: string | null;
+  disclaimer?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-groups".
+ */
+export interface ServiceGroup {
+  id: number;
+  title: string;
+  /**
+   * URL segment. Auto-filled from the title.
+   */
+  slug: string;
+  summary: string;
+  /**
+   * Pick from the curated icon set.
+   */
+  icon:
+    | 'anchor'
+    | 'award'
+    | 'badge'
+    | 'boxes'
+    | 'briefcase'
+    | 'building'
+    | 'calculator'
+    | 'calendar'
+    | 'chart'
+    | 'clipboard'
+    | 'compass'
+    | 'crown'
+    | 'eye'
+    | 'factory'
+    | 'document'
+    | 'flag'
+    | 'gauge'
+    | 'gavel'
+    | 'globe'
+    | 'graduation'
+    | 'handshake'
+    | 'hardhat'
+    | 'heart'
+    | 'laptop'
+    | 'layers'
+    | 'lightbulb'
+    | 'pin'
+    | 'megaphone'
+    | 'network'
+    | 'package'
+    | 'palette'
+    | 'puzzle'
+    | 'rocket'
+    | 'scale'
+    | 'scroll'
+    | 'search'
+    | 'settings'
+    | 'shield'
+    | 'cart'
+    | 'sparkles'
+    | 'target'
+    | 'trending'
+    | 'usercheck'
+    | 'usersearch'
+    | 'users'
+    | 'team'
+    | 'wallet'
+    | 'workflow';
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  services?: {
+    docs?: (number | Service)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: number;
+  title: string;
+  /**
+   * URL segment. Auto-filled from the title.
+   */
+  slug: string;
+  /**
+   * Pick from the curated icon set.
+   */
+  icon:
+    | 'anchor'
+    | 'award'
+    | 'badge'
+    | 'boxes'
+    | 'briefcase'
+    | 'building'
+    | 'calculator'
+    | 'calendar'
+    | 'chart'
+    | 'clipboard'
+    | 'compass'
+    | 'crown'
+    | 'eye'
+    | 'factory'
+    | 'document'
+    | 'flag'
+    | 'gauge'
+    | 'gavel'
+    | 'globe'
+    | 'graduation'
+    | 'handshake'
+    | 'hardhat'
+    | 'heart'
+    | 'laptop'
+    | 'layers'
+    | 'lightbulb'
+    | 'pin'
+    | 'megaphone'
+    | 'network'
+    | 'package'
+    | 'palette'
+    | 'puzzle'
+    | 'rocket'
+    | 'scale'
+    | 'scroll'
+    | 'search'
+    | 'settings'
+    | 'shield'
+    | 'cart'
+    | 'sparkles'
+    | 'target'
+    | 'trending'
+    | 'usercheck'
+    | 'usersearch'
+    | 'users'
+    | 'team'
+    | 'wallet'
+    | 'workflow';
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  summary: string;
+  /**
+   * Optional photo for the card.
+   */
+  image?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "insights".
+ */
+export interface Insight {
+  id: number;
+  title: string;
+  /**
+   * URL segment. Auto-filled from the title.
+   */
+  slug: string;
+  category: 'hr' | 'compliance' | 'recruitment' | 'business';
+  publishedAt: string;
+  summary: string;
+  cover?: (number | null) | Media;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Optional original post (e.g. LinkedIn).
+   */
+  sourceUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: number;
+  quote: string;
+  name: string;
+  designation?: string | null;
+  company?: string | null;
+  /**
+   * Measurable result, e.g. "Hiring time cut by 40%".
+   */
+  outcome?: string | null;
+  photo?: (number | null) | Media;
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enquiries".
+ */
+export interface Enquiry {
+  id: number;
+  status?: ('new' | 'contacted' | 'qualified' | 'won' | 'lost') | null;
+  companyName: string;
+  contactPerson: string;
+  designation?: string | null;
+  email: string;
+  phone: string;
+  industry?: string | null;
+  organisationSize?: string | null;
+  services?: (number | Service)[] | null;
+  message: string;
+  /**
+   * Internal notes (never shown publicly).
+   */
+  notes?: string | null;
+  consent?: boolean | null;
+  sourcePage?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications".
+ */
+export interface Application {
+  id: number;
+  status?: ('new' | 'shortlisted' | 'interviewed' | 'placed' | 'rejected') | null;
+  fullName: string;
+  phone: string;
+  email: string;
+  currentLocation?: string | null;
+  qualification?: string | null;
+  totalExperience?: string | null;
+  currentDesignation?: string | null;
+  preferredLocation?: string | null;
+  expectedCtc?: string | null;
+  currentCtc?: string | null;
+  noticePeriod?: string | null;
+  resume?: (number | null) | Resume;
+  /**
+   * Internal notes (never shown publicly).
+   */
+  notes?: string | null;
+  consent?: boolean | null;
+  sourcePage?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Private files. Only staff with access to applications can download them.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resumes".
+ */
+export interface Resume {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -262,8 +1959,44 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
+        relationTo: 'pages';
+        value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'service-groups';
+        value: number | ServiceGroup;
+      } | null)
+    | ({
+        relationTo: 'industries';
+        value: number | Industry;
+      } | null)
+    | ({
+        relationTo: 'insights';
+        value: number | Insight;
+      } | null)
+    | ({
+        relationTo: 'testimonials';
+        value: number | Testimonial;
+      } | null)
+    | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'enquiries';
+        value: number | Enquiry;
+      } | null)
+    | ({
+        relationTo: 'applications';
+        value: number | Application;
+      } | null)
+    | ({
+        relationTo: 'resumes';
+        value: number | Resume;
       } | null)
     | ({
         relationTo: 'users';
@@ -317,6 +2050,679 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  layout?:
+    | T
+    | {
+        hero?: T | HeroBlockSelect<T>;
+        pageHeader?: T | PageHeaderBlockSelect<T>;
+        stats?: T | StatsBlockSelect<T>;
+        richContent?: T | RichContentBlockSelect<T>;
+        pillars?: T | PillarsBlockSelect<T>;
+        features?: T | FeaturesBlockSelect<T>;
+        serviceEcosystem?: T | ServiceEcosystemBlockSelect<T>;
+        servicesDetail?: T | ServicesDetailBlockSelect<T>;
+        process?: T | ProcessBlockSelect<T>;
+        packages?: T | PackagesBlockSelect<T>;
+        list?: T | ListBlockSelect<T>;
+        visionMission?: T | VisionMissionBlockSelect<T>;
+        industries?: T | IndustriesBlockSelect<T>;
+        liveDemo?: T | LiveDemoBlockSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
+        insightsList?: T | InsightsListBlockSelect<T>;
+        cta?: T | CtaBlockSelect<T>;
+        enquiryForm?: T | EnquiryFormBlockSelect<T>;
+        applicationForm?: T | ApplicationFormBlockSelect<T>;
+        contactInfo?: T | ContactInfoBlockSelect<T>;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  body?: T;
+  primaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  waypoints?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        id?: T;
+      };
+  highlights?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        id?: T;
+      };
+  image?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHeaderBlock_select".
+ */
+export interface PageHeaderBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  breadcrumb?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock_select".
+ */
+export interface StatsBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        icon?: T;
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichContentBlock_select".
+ */
+export interface RichContentBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  paragraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  bullets?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  closing?: T;
+  layout?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PillarsBlock_select".
+ */
+export interface PillarsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesBlock_select".
+ */
+export interface FeaturesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  columns?: T;
+  variant?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceEcosystemBlock_select".
+ */
+export interface ServiceEcosystemBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  centerLabel?: T;
+  showServices?: T;
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesDetailBlock_select".
+ */
+export interface ServicesDetailBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessBlock_select".
+ */
+export interface ProcessBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  steps?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        activities?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  showActivities?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PackagesBlock_select".
+ */
+export interface PackagesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  tiers?:
+    | T
+    | {
+        name?: T;
+        subtitle?: T;
+        description?: T;
+        includesPrevious?: T;
+        items?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        featured?: T;
+        id?: T;
+      };
+  note?: T;
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListBlock_select".
+ */
+export interface ListBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
+      };
+  variant?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VisionMissionBlock_select".
+ */
+export interface VisionMissionBlockSelect<T extends boolean = true> {
+  visionHeading?: T;
+  vision?: T;
+  missionHeading?: T;
+  mission?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IndustriesBlock_select".
+ */
+export interface IndustriesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  variant?: T;
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LiveDemoBlock_select".
+ */
+export interface LiveDemoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  modules?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  note?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InsightsListBlock_select".
+ */
+export interface InsightsListBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  limit?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaBlock_select".
+ */
+export interface CtaBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  primaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  showWhatsApp?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EnquiryFormBlock_select".
+ */
+export interface EnquiryFormBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  submitLabel?: T;
+  successMessage?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ApplicationFormBlock_select".
+ */
+export interface ApplicationFormBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  submitLabel?: T;
+  note?: T;
+  successMessage?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock_select".
+ */
+export interface ContactInfoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  closing?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  shortTitle?: T;
+  slug?: T;
+  group?: T;
+  flagship?: T;
+  icon?: T;
+  order?: T;
+  summary?: T;
+  items?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  focus?: T;
+  disclaimer?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-groups_select".
+ */
+export interface ServiceGroupsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  summary?: T;
+  icon?: T;
+  order?: T;
+  services?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries_select".
+ */
+export interface IndustriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  icon?: T;
+  order?: T;
+  summary?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "insights_select".
+ */
+export interface InsightsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  category?: T;
+  publishedAt?: T;
+  summary?: T;
+  cover?: T;
+  body?: T;
+  sourceUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  quote?: T;
+  name?: T;
+  designation?: T;
+  company?: T;
+  outcome?: T;
+  photo?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -366,6 +2772,68 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enquiries_select".
+ */
+export interface EnquiriesSelect<T extends boolean = true> {
+  status?: T;
+  companyName?: T;
+  contactPerson?: T;
+  designation?: T;
+  email?: T;
+  phone?: T;
+  industry?: T;
+  organisationSize?: T;
+  services?: T;
+  message?: T;
+  notes?: T;
+  consent?: T;
+  sourcePage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications_select".
+ */
+export interface ApplicationsSelect<T extends boolean = true> {
+  status?: T;
+  fullName?: T;
+  phone?: T;
+  email?: T;
+  currentLocation?: T;
+  qualification?: T;
+  totalExperience?: T;
+  currentDesignation?: T;
+  preferredLocation?: T;
+  expectedCtc?: T;
+  currentCtc?: T;
+  noticePeriod?: T;
+  resume?: T;
+  notes?: T;
+  consent?: T;
+  sourcePage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resumes_select".
+ */
+export interface ResumesSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -450,6 +2918,161 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Company name, contact details and WhatsApp.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  siteName: string;
+  tagline?: string | null;
+  strapline?: string | null;
+  pillarsLine?: string | null;
+  phone: string;
+  whatsapp: string;
+  whatsappMessage?: string | null;
+  email: string;
+  hours?: string | null;
+  location?: string | null;
+  /**
+   * Full https:// URL of the LinkedIn page.
+   */
+  linkedin?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Main menu and header buttons.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: number;
+  nav?:
+    | {
+        label: string;
+        href: string;
+        dropdown?: ('none' | 'services') | null;
+        hideWhenEmpty?: ('never' | 'insights') | null;
+        id?: string | null;
+      }[]
+    | null;
+  secondaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  primaryCta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Footer text and links. Services are listed automatically.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  about?: string | null;
+  quickLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  legalLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  closingLine?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  tagline?: T;
+  strapline?: T;
+  pillarsLine?: T;
+  phone?: T;
+  whatsapp?: T;
+  whatsappMessage?: T;
+  email?: T;
+  hours?: T;
+  location?: T;
+  linkedin?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  nav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        dropdown?: T;
+        hideWhenEmpty?: T;
+        id?: T;
+      };
+  secondaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  primaryCta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  about?: T;
+  quickLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  legalLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  closingLine?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

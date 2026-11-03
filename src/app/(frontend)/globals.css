@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+
+/* Brand tokens sampled from the official logo. See docs/design/brand.md */
+@theme {
+  --color-plum-950: #22062a;
+  --color-plum-900: #3c0c48;
+  --color-plum-800: #4e1052;
+  --color-plum-700: #651a6b;
+  --color-plum-600: #7b2d83;
+  --color-plum-200: #e4d3ea;
+  --color-plum-100: #f3ecf6;
+  --color-plum-50: #faf6fb;
+  --color-gold-600: #d98f0b;
+  --color-gold-500: #f0a824;
+  --color-gold-400: #f4c04a;
+  --color-gold-100: #fce4b4;
+  --color-ink: #1e1626;
+  --color-muted: #5d5366;
+
+  --font-display: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(60 12 72 / 0.06), 0 8px 24px -8px rgb(60 12 72 / 0.14);
+  --shadow-glow: 0 0 0 1px rgb(240 168 36 / 0.35), 0 8px 30px -6px rgb(240 168 36 / 0.45);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold-500;
+  }
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .field {
+    @apply w-full rounded-lg border border-plum-200 bg-white px-3.5 py-2.5 text-sm text-ink shadow-xs
+      placeholder:text-muted/70 focus:border-plum-600 focus:ring-2 focus:ring-plum-200 focus:outline-none;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -8,7 +8,7 @@ const audit = auditHooks('media')
 /** Public images (logos, team photos, illustrations). Resumes live in a separate private collection. */
 export const Media: CollectionConfig = {
   slug: 'media',
-  admin: { group: 'Content' },
+  admin: { group: 'Website' },
   access: {
     read: anyone,
     create: allow('media.upload'),
