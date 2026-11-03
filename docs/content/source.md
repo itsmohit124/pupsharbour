@@ -3,7 +3,11 @@ Source of truth for the INITIAL site copy. Extracted from the two ChatGPT planni
 (final revised version, aligned to the 8-page company presentation and the 13-service portfolio).
 Loaded once by scripts/seed.ts. After seeding, the database is the source of truth and content is
 edited only through /admin.
-Brand tokens from the design brief: navy #10243C, gold #D1A85B, light #F3F5F8, white #FFFFFF.
+Brand tokens are sampled from the official logo (public/brand/logo.png): deep plum #3C0C48 / #4E1052,
+amber gold #F0A824 / #F4C04A, soft gold #FCE4B4, white. This supersedes the chats' navy suggestion.
+The layout follows the client's design references in docs/design/reference-home-{a,b}.png.
+Items marked [CONFIRM] are figures or claims from the design mockups. They are seeded HIDDEN until
+the client confirms they are accurate.
 -->
 
 # PUPS HARBOUR CONSULTANCY
@@ -11,6 +15,21 @@ Brand tokens from the design brief: navy #10243C, gold #D1A85B, light #F3F5F8, w
 **Brand · Marketing · HR · Strategy**
 
 Tagline: *A Harbour for Your Business Journey.*
+
+Header strapline: *Guiding People. Building Futures.*
+Logo tagline: *Your HR & Business Growth Partner.*
+
+---
+
+# SITE HEADER / NAVIGATION
+
+Logo (left) · strapline "Guiding People. Building Futures."
+
+Menu: Home · About Us · Services (dropdown: the four ecosystem groups → their services) · Industries · Insights · Careers
+
+Buttons: **Request a Demo** (outline, gold) · **Contact Us →** (solid gold)
+
+Floating button on every page: WhatsApp quick contact (+91 62064 54663).
 
 ---
 
@@ -30,6 +49,22 @@ From organisational assessment and HR transformation to talent acquisition, busi
 - Let's Grow Together
 - Explore Our Services
 - Book a Consultation
+
+**Alternate hero headlines (from the design references; editors can switch in the admin):**
+- *Your Strategic HR & Workforce **Solutions Partner*** (sub: From building the right teams to creating compliant, digital and high-performing workplaces, we help businesses hire, manage and grow their people with confidence.)
+- *People. Processes. Performance. **Growth.*** (eyebrow: PUPS HARBOUR CONSULTANCY; sub: Your Integrated HR & Workforce Solutions Partner. From recruitment and compliance to digital HR and talent development, we help businesses build agile, compliant and high-performing teams.)
+
+**Hero visual:** lighthouse at dusk over the sea, with a glowing path linking five waypoints:
+Workforce Planning · Talent Acquisition · HR & Compliance · Digital HR Transformation · Talent Development.
+
+**Hero highlights (icon row):** Hire Smarter · Operate Compliantly · Manage Efficiently · Grow Sustainably
+
+## STATS BAR [CONFIRM]
+
+- **10,000+** Talent Placements
+- **200+** Trusted Clients
+- **Pan-India** Hiring / Recruitment Network
+- **15+** Industry Expertise
 
 ## INTRODUCTION – WHO WE ARE
 
@@ -57,7 +92,34 @@ Transforming people management through structured HR systems, talent acquisition
 ### 04. Business Strategy
 Helping organisations assess their business, optimise operations and develop strategic roadmaps for sustainable growth.
 
+## OUR SERVICE ECOSYSTEM
+
+### End-to-End HR & Workforce Solutions
+
+Integrated HR solutions across the entire employee lifecycle. Our 13 services are organised into four groups (centre graphic: **End-to-End People Solutions**):
+
+**Recruitment & Talent Solutions:** The right talent, for the right roles, at the right time.
+→ Talent Acquisition · Staffing Solutions · Training & Development · Succession Planning & Leadership Pipeline
+
+**HR Consulting & Business Solutions:** Build strong HR systems that drive performance.
+→ **Company Analysis & 360° Survey (flagship)** · Policy Drafting (Company Policy & SOPs) · PMS (Performance Management System) · People Management & Engagement · Workforce Cost Optimization (CTC Restructuring)
+
+**Compliance & Risk Management:** Stay compliant, reduce risks and operate with confidence.
+→ Statutory Compliance Audits (PF/ESIC/Labor Laws) · POSH Compliance & ICC Setup · Legal Services & Employment Contracts (NDAs/Bonds)
+
+**Digital HR & Workforce Transformation:** Technology-enabled HR for a more agile and efficient workforce.
+→ HRMS Integration & Digitalization
+
 ## WHY CHOOSE PUPS HARBOUR?
+
+### More than a service provider: we are your long-term workforce partner.
+
+- **Pan-India Talent Reach:** Access to a wide and diverse talent pool.
+- **Industry Expertise:** Specialised hiring across key industries.
+- **Tech-Enabled Processes:** Faster, transparent and more efficient HR operations.
+- **Compliance Focused:** Stay compliant and minimise business risk.
+- **Data-Driven Decisions:** Workforce insights for better business outcomes.
+- **End-to-End Support:** From hiring to workforce development and beyond.
 
 ### The Pups Harbour Advantage
 
@@ -84,6 +146,24 @@ Practical recommendations and implementation-focused strategies designed around 
 **Discover → Plan → Execute → Review**
 
 We understand your organisation, develop a customised strategy, implement practical solutions and continuously evaluate performance to drive improvement.
+
+## INDUSTRIES WE SERVE
+
+HR solutions tailored to the unique needs of diverse industries.
+
+Manufacturing · PEB & Engineering · Construction · Packaging · FMCG & Distribution · and More…
+
+**CTA:** Explore Industry Solutions
+
+## LIVE DEMO [CONFIRM: is there a real demo product/URL?]
+
+### Experience Our Solutions in Action
+
+Explore a working demo of our digital HR and recruitment solutions before you make a decision.
+
+Demo modules: Recruitment Dashboard · HRMS Overview · Compliance Tracker · Workforce Analytics · Digital Onboarding
+
+**CTA:** Request Full Demo
 
 ## FINAL CTA
 
@@ -168,7 +248,9 @@ At Pups Harbour Consultancy, we offer integrated consulting services designed to
 
 Our services cover the complete organisational lifecycle, from business assessment and policy development to talent acquisition, performance management and leadership succession.
 
-## 01. Policy Drafting – Company Policies & SOPs
+## 01. Policy Drafting (Company Policy & SOPs)
+
+*Group: HR Consulting & Business Solutions*
 
 Build a structured organisation with clearly defined policies, procedures and responsibilities.
 
@@ -187,6 +269,8 @@ Our services include:
 
 ## 02. Company Analysis & 360° Survey
 
+*Group: HR Consulting & Business Solutions* · **Flagship service**
+
 Understand your organisation from every angle and identify opportunities for improvement.
 
 Our services include:
@@ -202,7 +286,9 @@ Our services include:
 
 **Our Focus:** Identifying organisational strengths, weaknesses and opportunities through structured assessments.
 
-## 03. PMS – Performance Management System
+## 03. PMS (Performance Management System)
+
+*Group: HR Consulting & Business Solutions*
 
 Create a performance-driven organisation through structured goal setting, evaluation and accountability.
 
@@ -220,6 +306,8 @@ Our services include:
 **Our Focus:** Aligning individual performance with organisational objectives.
 
 ## 04. Talent Acquisition
+
+*Group: Recruitment & Talent Solutions*
 
 Connect your organisation with the right talent through structured recruitment and selection processes.
 
@@ -239,6 +327,8 @@ Our services include:
 
 ## 05. Staffing Solutions
 
+*Group: Recruitment & Talent Solutions*
+
 Build a flexible and efficient workforce to meet your operational requirements.
 
 Our services include:
@@ -254,7 +344,9 @@ Our services include:
 
 **Our Focus:** Providing workforce solutions aligned with business requirements and operational demands.
 
-## 06. HRMS Integration & Digitalisation
+## 06. HRMS Integration & Digitalization
+
+*Group: Digital HR & Workforce Transformation*
 
 Transform traditional HR operations through technology-enabled systems and digital workflows.
 
@@ -274,6 +366,8 @@ Our services include:
 
 ## 07. People Management & Engagement
 
+*Group: HR Consulting & Business Solutions*
+
 Create a positive workplace culture where employees feel valued, connected and motivated.
 
 Our services include:
@@ -291,6 +385,8 @@ Our services include:
 
 ## 08. Training & Development
 
+*Group: Recruitment & Talent Solutions*
+
 Build employee capabilities and prepare teams for evolving business requirements.
 
 Our services include:
@@ -307,7 +403,9 @@ Our services include:
 
 **Our Focus:** Developing skilled, confident and capable professionals.
 
-## 09. Workforce Cost Optimisation – CTC Restructuring
+## 09. Workforce Cost Optimization (CTC Restructuring)
+
+*Group: HR Consulting & Business Solutions*
 
 Improve workforce cost efficiency while maintaining competitive and sustainable compensation structures.
 
@@ -324,7 +422,9 @@ Our services include:
 
 **Our Focus:** Balancing employee compensation, organisational budgets and workforce productivity.
 
-## 10. Legal Services & Employment Contracts – NDAs / Bonds
+## 10. Legal Services & Employment Contracts (NDAs/Bonds)
+
+*Group: Compliance & Risk Management*
 
 Support organisations in developing structured employment documentation and contractual frameworks.
 
@@ -343,7 +443,9 @@ Our services include:
 
 *Legal documents and contractual frameworks should be reviewed by qualified legal professionals for applicable enforceability and legal compliance.*
 
-## 11. Statutory Compliance Audits – PF / ESIC / Labour Laws
+## 11. Statutory Compliance Audits (PF/ESIC/Labor Laws)
+
+*Group: Compliance & Risk Management*
 
 Help organisations assess their statutory compliance processes and identify potential gaps.
 
@@ -363,6 +465,8 @@ Our services include:
 
 ## 12. POSH Compliance & ICC Setup
 
+*Group: Compliance & Risk Management*
+
 Promote a safe, respectful and inclusive workplace through structured POSH compliance support.
 
 Our services include:
@@ -379,6 +483,8 @@ Our services include:
 **Our Focus:** Helping organisations establish appropriate workplace prevention, awareness and redressal mechanisms in accordance with applicable POSH requirements.
 
 ## 13. Succession Planning & Leadership Pipeline
+
+*Group: Recruitment & Talent Solutions*
 
 Prepare your organisation for the future by identifying and developing the next generation of leaders.
 
@@ -526,7 +632,44 @@ Whether you need an organisational assessment, HR transformation, recruitment su
 
 ---
 
-# PAGE 5 – CAREERS & CONTACT US
+# PAGE 5 – INDUSTRIES
+
+## Industries We Serve
+
+### HR solutions tailored to the unique needs of diverse industries.
+
+Every industry has its own workforce patterns, skill requirements and compliance obligations. We bring sector-specific understanding to hiring, staffing, HR systems and compliance.
+
+- **Manufacturing:** Plant, production, quality and maintenance roles; contract and permanent staffing; shop-floor compliance.
+- **PEB & Engineering:** Project engineers, site supervisors, design and fabrication talent; project-based staffing.
+- **Construction:** Site and project teams, contract workforce coordination, labour law compliance.
+- **Packaging:** Production, operations and supply-chain roles; workforce planning for volume demand.
+- **FMCG & Distribution:** Sales, distribution, warehouse and supply-chain hiring; bulk and volume hiring.
+- **And More:** Pharmaceuticals & Healthcare, IT, Finance, and corporate and professional organisations.
+
+*(Each industry card links to an enquiry pre-filled with that industry.)*
+
+**CTA:** Discuss Your Industry Requirements
+
+---
+
+# PAGE 6 – INSIGHTS
+
+## Insights
+
+### HR, compliance and workforce updates for growing businesses.
+
+Articles managed in the admin (title, summary, cover image, body, category, publish date).
+Seed topics already published on LinkedIn:
+- Gujarat Minimum Wages Revised for April to September 2026.
+- EPFO Wage Ceiling Raised to ₹25,000.
+- Why MSMEs Must Invest in People First.
+
+*(The Insights menu item is hidden until at least one article is published.)*
+
+---
+
+# PAGE 7 – CAREERS & CONTACT US
 
 ## SECTION A – CAREERS
 
@@ -639,6 +782,8 @@ We connect business strategy, brand positioning and human capital to help organi
 - About Us
 - Our Services
 - Our Approach
+- Industries
+- Insights
 - Careers
 - Contact Us
 
@@ -648,10 +793,10 @@ We connect business strategy, brand positioning and human capital to help organi
 - Performance Management System
 - Talent Acquisition
 - Staffing Solutions
-- HRMS Integration
+- HRMS Integration & Digitalization
 - People Management & Engagement
 - Training & Development
-- Workforce Cost Optimisation
+- Workforce Cost Optimization
 - Legal Services & Employment Contracts
 - Statutory Compliance Audits
 - POSH Compliance
