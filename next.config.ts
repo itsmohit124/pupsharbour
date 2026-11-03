@@ -7,6 +7,8 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  // Dev server only: allow HMR/assets when previewing through a Cloudflare quick tunnel.
+  allowedDevOrigins: ['*.trycloudflare.com'],
   images: {
     localPatterns: [
       {

@@ -14,6 +14,14 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+// Extra trusted origins (comma-separated), e.g. localhost while the public URL is a tunnel.
+const allowedOrigins = [
+  serverURL,
+  ...(process.env.ALLOWED_ORIGINS ?? '')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean),
+]
 
 if (process.env.NODE_ENV === 'production' && (process.env.PAYLOAD_SECRET ?? '').length < 32) {
   throw new Error('PAYLOAD_SECRET must be set to a random string of at least 32 characters.')
@@ -22,8 +30,8 @@ if (process.env.NODE_ENV === 'production' && (process.env.PAYLOAD_SECRET ?? '').
 export default buildConfig({
   serverURL,
   // Only our own origin may make credentialed requests to the API.
-  cors: [serverURL],
-  csrf: [serverURL],
+  cors: allowedOrigins,
+  csrf: allowedOrigins,
   admin: {
     user: Users.slug,
     meta: { titleSuffix: ' · Pups Harbour Admin' },
