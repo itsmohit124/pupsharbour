@@ -3,6 +3,7 @@ import { APIError, type CollectionConfig, type FieldAccess, type PayloadRequest 
 import { allow, can, capabilityOrSelf } from '@/access'
 import { assignableRoles, ROLES, type Principal } from '@/access/permissions'
 import { auditHooks, writeAudit } from '@/audit/writeAudit'
+import { normalizeIndianMobile } from '@/lib/phone'
 import {
   checkPassword,
   checkUserCreate,
@@ -167,6 +168,17 @@ export const Users: CollectionConfig = {
   },
   fields: [
     { name: 'name', type: 'text', required: true },
+    {
+      name: 'phone',
+      type: 'text',
+      label: 'Mobile',
+      admin: { description: 'Indian mobile number, stored as +91XXXXXXXXXX.' },
+      validate: (value: string | null | undefined) =>
+        !value || normalizeIndianMobile(value) ? true : 'Enter a valid 10-digit Indian mobile number.',
+      hooks: {
+        beforeChange: [({ value }) => (value ? (normalizeIndianMobile(value) ?? value) : value)],
+      },
+    },
     {
       name: 'role',
       type: 'select',

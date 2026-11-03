@@ -175,6 +175,10 @@ export interface User {
   id: number;
   name: string;
   /**
+   * Indian mobile number, stored as +91XXXXXXXXXX.
+   */
+  phone?: string | null;
+  /**
    * What this person can do. See docs/permissions in the repo for the full matrix.
    */
   role: 'super_admin' | 'admin' | 'editor' | 'contributor' | 'recruiter';
@@ -369,6 +373,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  phone?: T;
   role?: T;
   active?: T;
   mustChangePassword?: T;
