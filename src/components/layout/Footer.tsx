@@ -14,7 +14,7 @@ export function Footer({ data }: { data: SiteData }) {
     <footer className="bg-plum-950 text-white/80">
       <div className="container-x grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <Logo name={settings.siteName} />
+          <Logo name={settings.siteName} strapline={settings.strapline} />
           <p className="mt-5 text-sm font-semibold text-gold-400">{settings.tagline}</p>
           <p className="mt-1 text-xs tracking-[0.2em] text-white/60 uppercase">{settings.pillarsLine}</p>
           {footer.about && <p className="mt-4 text-sm leading-relaxed">{footer.about}</p>}
@@ -47,6 +47,12 @@ export function Footer({ data }: { data: SiteData }) {
           <h2 className="text-sm font-semibold tracking-wider text-white uppercase">Contact</h2>
           <ul className="mt-4 space-y-3 text-sm">
             <li className="flex gap-2"><Phone aria-hidden className="mt-0.5 size-4 text-gold-400" /><a href={`tel:${tel}`} className="hover:text-gold-400">{settings.phone}</a></li>
+            {settings.businessPhone && (
+              <li className="flex gap-2"><Phone aria-hidden className="mt-0.5 size-4 text-gold-400" /><span>Business: <a href={`tel:${settings.businessPhone.replace(/[^\d+]/g, '')}`} className="hover:text-gold-400">{settings.businessPhone}</a></span></li>
+            )}
+            {settings.recruitmentPhone && (
+              <li className="flex gap-2"><Phone aria-hidden className="mt-0.5 size-4 text-gold-400" /><span>Recruitment: <a href={`tel:${settings.recruitmentPhone.replace(/[^\d+]/g, '')}`} className="hover:text-gold-400">{settings.recruitmentPhone}</a></span></li>
+            )}
             <li className="flex gap-2"><Mail aria-hidden className="mt-0.5 size-4 text-gold-400" /><a href={`mailto:${settings.email}`} className="break-all hover:text-gold-400">{settings.email}</a></li>
             {settings.hours && <li className="flex gap-2"><Clock aria-hidden className="mt-0.5 size-4 text-gold-400" />{settings.hours}</li>}
             {settings.location && <li className="flex gap-2"><MapPin aria-hidden className="mt-0.5 size-4 text-gold-400" />{settings.location}</li>}

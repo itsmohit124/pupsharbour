@@ -16,6 +16,7 @@ permission, edit the test first, then the matrix.
 | Site settings (phone, WhatsApp, email) | ✅ | ✅ | ❌ | ❌ | ❌ |
 | Business enquiries (read/status/notes, delete/export) | ✅ | ✅ | ❌ | ❌ | ❌ |
 | Job applications + resumes (read/download/status) | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Employer hiring requirements + job-description files (read/status) | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Job applications (delete/export) | ✅ | ✅ | ❌ | ❌ | ❌ |
 | Manage staff users | ✅ any role | ✅ editor/contributor/recruiter | ❌ | ❌ | ❌ |
 | Read audit log | ✅ | ✅ | ❌ | ❌ | ❌ |

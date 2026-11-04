@@ -7,6 +7,7 @@ const PAGES: [string, RegExp][] = [
   ['/services', /Organisational Consulting Solutions/],
   ['/services/company-analysis-and-360-survey', /Company Analysis & 360° Survey/],
   ['/approach', /Methodology/],
+  ['/employers', /Strengthen Your Business/],
   ['/industries', /diverse industries/],
   ['/insights', /growing businesses/],
   ['/careers', /Your Future/],
@@ -41,4 +42,17 @@ test('unknown pages return 404', async ({ page }) => {
 
 test('Payload first-user registration is closed', async ({ page }) => {
   expect((await page.goto('/admin/create-first-user'))?.status()).toBe(404)
+})
+
+test('Home offers Employer / Job Seeker paths and Contact shows all three phone numbers', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.getByText("I'm an Employer")).toBeVisible()
+  await expect(page.getByText("I'm a Job Seeker")).toBeVisible()
+  await page.goto('/contact')
+  for (const n of ['+91 62064 54663', '+91 99985 29394', '+91 97248 75844']) await expect(page.getByText(n).first()).toBeVisible()
+})
+
+test('header shows the tagline under the logo', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('header').getByText('Guiding People. Building Futures.')).toBeVisible()
 })

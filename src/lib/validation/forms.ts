@@ -60,6 +60,29 @@ export const applicationSchema = z.object({
 })
 export type ApplicationInput = z.infer<typeof applicationSchema>
 
+const optionalCount = z
+  .union([z.literal('').transform(() => undefined), z.coerce.number().int('Enter a whole number.').min(1, 'At least 1.').max(10000, 'That seems too many.')])
+  .optional()
+
+export const hiringSchema = z.object({
+  companyName: required(150, 'Company name'),
+  contactPerson: required(120, 'Contact person'),
+  designation: optional(120),
+  email: z.string().trim().toLowerCase().email('Enter a valid email address.').max(200),
+  phone,
+  industry: optional(120),
+  position: required(150, 'Position / job title'),
+  vacancies: optionalCount,
+  location: optional(150),
+  experience: optional(80),
+  timeline: optional(80),
+  message: optional(5000),
+  consent,
+  website: honeypot,
+  sourcePage: optional(300),
+})
+export type HiringInput = z.infer<typeof hiringSchema>
+
 /** Flatten zod issues to { field: message } for the form UI. */
 export function fieldErrors(error: z.ZodError): Record<string, string> {
   const out: Record<string, string> = {}

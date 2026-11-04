@@ -15,7 +15,7 @@ export const Pages: CollectionConfig = {
     description: 'Each page is a stack of sections. Add, reorder, hide or remove sections and edit every item inside them.',
     preview: (doc) => `/api/preview?path=${encodeURIComponent(doc.slug === 'home' ? '/' : `/${doc.slug}`)}`,
   },
-  ...draftContent('pages'),
+  ...draftContent('pages', { autosave: true }),
   fields: [
     { name: 'title', type: 'text', required: true },
     {
@@ -48,8 +48,8 @@ export const Pages: CollectionConfig = {
               name: 'meta',
               type: 'group',
               fields: [
-                { name: 'title', type: 'text', maxLength: 70 },
-                { name: 'description', type: 'textarea', maxLength: 170 },
+                { name: 'title', type: 'text', maxLength: 90, admin: { description: 'Shown in Google results and the browser tab. Aim for 50–65 characters.' } },
+                { name: 'description', type: 'textarea', maxLength: 300, admin: { description: 'Shown under the title in Google results. Aim for 120–160 characters.' } },
                 { name: 'image', type: 'upload', relationTo: 'media' },
               ],
             },

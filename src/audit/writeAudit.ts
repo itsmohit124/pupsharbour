@@ -113,7 +113,7 @@ export function auditHooks(slug: string): {
 } {
   return {
     afterChange: async ({ doc, previousDoc, operation, req, context }) => {
-      if (context?.skipAudit) return doc
+      if (context?.skipAudit || context?.autosave) return doc
       const before = operation === 'update' ? (previousDoc as Record<string, unknown>) : undefined
       await writeAudit(req, {
         action: classify(operation, before, doc as Record<string, unknown>),

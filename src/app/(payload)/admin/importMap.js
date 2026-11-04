@@ -1,3 +1,5 @@
+import { SectionGuide as SectionGuide_81f2e7db5ad0675b423c2fcb884cfff3 } from '../../../components/admin/SectionGuide'
+import { SectionRowLabel as SectionRowLabel_15e770b778de1c47eb40d901b569e5fa } from '../../../components/admin/SectionRowLabel'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -23,10 +25,15 @@ import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { AdminIcon as AdminIcon_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/Brand'
 import { AdminLogo as AdminLogo_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/Brand'
+import { NavHelpLinks as NavHelpLinks_9d02fe697b71d150b948455e0b0d6855 } from '../../../components/admin/NavHelpLinks'
+import { DashboardWelcome as DashboardWelcome_76ec03dd917ecfb7a53441d4e825edcb } from '../../../components/admin/DashboardWelcome'
+import { HelpView as HelpView_dbf90f8b24efd36613f19005a2cfcf9d } from '../../../components/admin/HelpView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
+  "/components/admin/SectionGuide#SectionGuide": SectionGuide_81f2e7db5ad0675b423c2fcb884cfff3,
+  "/components/admin/SectionRowLabel#SectionRowLabel": SectionRowLabel_15e770b778de1c47eb40d901b569e5fa,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -52,5 +59,8 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "/components/admin/Brand#AdminIcon": AdminIcon_81fda60f3e3709e861f40982a767707d,
   "/components/admin/Brand#AdminLogo": AdminLogo_81fda60f3e3709e861f40982a767707d,
+  "/components/admin/NavHelpLinks#NavHelpLinks": NavHelpLinks_9d02fe697b71d150b948455e0b0d6855,
+  "/components/admin/DashboardWelcome#DashboardWelcome": DashboardWelcome_76ec03dd917ecfb7a53441d4e825edcb,
+  "/components/admin/HelpView#HelpView": HelpView_dbf90f8b24efd36613f19005a2cfcf9d,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

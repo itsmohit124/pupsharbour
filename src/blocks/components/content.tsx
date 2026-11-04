@@ -75,6 +75,16 @@ export function Pillars({ block }: { block: PillarsBlock }) {
             <IconTile name={p.icon} dark={dark} />
             <h3 className={clsx('mt-5 text-lg font-semibold', dark ? 'text-white' : 'text-plum-900')}>{p.title}</h3>
             {p.description && <p className={clsx('mt-2 text-sm leading-relaxed', dark ? 'text-white/75' : 'text-muted')}>{p.description}</p>}
+            {!!p.bullets?.length && (
+              <ul className="mt-4 space-y-1.5 text-sm">
+                {p.bullets.map((b) => (
+                  <li key={b.id ?? b.text} className={clsx('flex gap-2', dark ? 'text-white/85' : 'text-ink')}>
+                    <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-gold-500" />
+                    {b.text}
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ol>
@@ -126,13 +136,15 @@ export function Features({ block }: { block: FeaturesBlock }) {
 export function Process({ block }: { block: ProcessBlock }) {
   const dark = isDark(block.settings)
   const steps = block.steps ?? []
+  // 3 per row for 3/6/9 steps, otherwise 4; the connector line never runs past the end of a row.
+  const perRow = steps.length % 3 === 0 ? 3 : 4
   return (
     <Section settings={block.settings}>
       <SectionHeading eyebrow={block.eyebrow} heading={block.heading} highlight={block.highlight} intro={block.intro} dark={dark} align="center" />
-      <ol className={clsx('mt-12 grid gap-6', steps.length >= 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-3')}>
+      <ol className={clsx('mt-12 grid gap-6', perRow === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-2 lg:grid-cols-3')}>
         {steps.map((s, i) => (
           <li key={s.id ?? s.title} className="relative">
-            {i < steps.length - 1 && (
+            {i < steps.length - 1 && (i + 1) % perRow !== 0 && (
               <span aria-hidden className={clsx('absolute top-7 left-[calc(50%+2.5rem)] hidden h-px w-[calc(100%-5rem)] lg:block', dark ? 'bg-gold-400/50' : 'bg-plum-200')} />
             )}
             <div className="flex flex-col items-center text-center">
@@ -157,6 +169,11 @@ export function Process({ block }: { block: ProcessBlock }) {
           </li>
         ))}
       </ol>
+      {block.cta?.label && (
+        <div className="mt-10 text-center">
+          <CmsButton link={block.cta} variant={dark ? 'gold' : 'plum'} arrow />
+        </div>
+      )}
     </Section>
   )
 }

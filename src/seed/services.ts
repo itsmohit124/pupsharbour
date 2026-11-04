@@ -1,4 +1,9 @@
-/** The 13 services, verbatim from docs/content/source.md (titles as the client listed them). */
+/**
+ * The 13 services, verbatim from docs/content/source.md (titles as the client listed them).
+ * Items from the first chat's v1 services (HR Management & Operations, Payroll & Statutory
+ * Compliance, PMS & HR Analytics, Contract Labour Management, recruitment capabilities) are merged
+ * into the matching service.
+ */
 export const GROUPS = [
   {
     slug: 'recruitment-and-talent-solutions',
@@ -58,7 +63,7 @@ export const SERVICES: SeedService[] = [
     items: [
       'HR Policy Development', 'Employee Handbooks', 'Standard Operating Procedures (SOPs)', 'Code of Conduct',
       'Attendance and Leave Policies', 'Recruitment and Onboarding Policies', 'Employee Discipline and Grievance Procedures',
-      'Departmental Process Documentation',
+      'Departmental Process Documentation', 'HR Process Development', 'Employee Lifecycle Management', 'Joining and Onboarding Processes', 'Employee Documentation',
     ],
     focus: 'Creating clarity, consistency and accountability across organisational operations.',
   },
@@ -89,7 +94,7 @@ export const SERVICES: SeedService[] = [
     items: [
       'KPI and KRA Development', 'Performance Appraisal Systems', 'Goal Setting and Tracking', 'Performance Review Frameworks',
       'Performance Improvement Plans (PIP)', 'Departmental Performance Monitoring', 'Employee Evaluation Systems',
-      'Incentive and Reward Frameworks',
+      'Incentive and Reward Frameworks', 'HR MIS Reporting', 'Workforce Analytics', 'Employee Productivity Monitoring',
     ],
     focus: 'Aligning individual performance with organisational objectives.',
   },
@@ -104,7 +109,7 @@ export const SERVICES: SeedService[] = [
     items: [
       'Permanent Recruitment', 'Executive Search', 'IT and Non-IT Recruitment', 'Technical and Non-Technical Hiring',
       'Bulk and Volume Hiring', 'Mid-Level and Senior-Level Recruitment', 'Candidate Screening and Shortlisting',
-      'Interview Coordination', 'Selection and Onboarding Support',
+      'Interview Coordination', 'Selection and Onboarding Support', 'Engineering and Technical Recruitment', 'Manufacturing and Industrial Recruitment', 'Sales and Marketing Recruitment', 'Finance and Accounts Recruitment', 'HR and Administration Recruitment',
     ],
     focus: 'Finding the right people for the right roles at the right time.',
   },
@@ -118,7 +123,7 @@ export const SERVICES: SeedService[] = [
     summary: 'Build a flexible and efficient workforce to meet your operational requirements.',
     items: [
       'Contract Staffing', 'Temporary Staffing', 'Permanent Staffing', 'Project-Based Staffing', 'Workforce Planning',
-      'Manpower Requirement Assessment', 'Contract Workforce Coordination', 'Staffing Administration Support',
+      'Manpower Requirement Assessment', 'Contract Workforce Coordination', 'Staffing Administration Support', 'Contractor Documentation', 'Labour Records Management', 'Attendance and Wage Documentation', 'Contract Labour Compliance Support', 'Workforce Coordination and Reporting',
     ],
     focus: 'Providing workforce solutions aligned with business requirements and operational demands.',
   },
@@ -177,7 +182,7 @@ export const SERVICES: SeedService[] = [
     summary: 'Improve workforce cost efficiency while maintaining competitive and sustainable compensation structures.',
     items: [
       'CTC Structure Analysis', 'Salary Benchmarking', 'Compensation Structure Review', 'Salary Component Restructuring',
-      'Workforce Cost Analysis', 'Employee Benefit Structure Review', 'Manpower Budgeting', 'Compensation Planning',
+      'Workforce Cost Analysis', 'Employee Benefit Structure Review', 'Manpower Budgeting', 'Compensation Planning', 'Salary Structure Management', 'Payroll Processing Support', 'Payroll Documentation',
     ],
     focus: 'Balancing employee compensation, organisational budgets and workforce productivity.',
   },
@@ -208,9 +213,10 @@ export const SERVICES: SeedService[] = [
     items: [
       'Provident Fund (PF) Compliance Review', 'ESIC Compliance Review', 'Labour Law Compliance Audits',
       'Employee Documentation Review', 'Wage and Attendance Record Audits', 'Statutory Register Review',
-      'Compliance Gap Assessment', 'Corrective Action Recommendations', 'Compliance Process Development',
+      'Compliance Gap Assessment', 'Corrective Action Recommendations', 'Compliance Process Development', 'PF and ESIC Administration Support', 'Professional Tax Compliance Support', 'Statutory Records and Documentation', 'Compliance Calendar and Reporting',
     ],
     focus: 'Strengthening compliance processes and supporting organisations in meeting applicable statutory obligations.',
+    disclaimer: 'All services are subject to the applicable laws, scope of engagement and professional requirements.',
   },
   {
     order: 12,

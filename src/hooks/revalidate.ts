@@ -15,7 +15,8 @@ async function purge() {
   }
 }
 
-export const revalidateAfterChange: CollectionAfterChangeHook = async ({ doc }) => {
+export const revalidateAfterChange: CollectionAfterChangeHook = async ({ doc, context }) => {
+  if (context?.autosave) return doc // drafts only change the preview, never the live site
   await purge()
   return doc
 }

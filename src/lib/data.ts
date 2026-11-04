@@ -117,6 +117,13 @@ export const getInsight = cache(async (slug: string): Promise<Insight | null> =>
   return docs[0] ?? null
 })
 
+/** Phone numbers from Site settings, by role, as display text + tel: link. */
+export function phoneFor(settings: SiteSetting, which: 'main' | 'business' | 'recruitment' | 'none' | null | undefined) {
+  const value =
+    which === 'business' ? settings.businessPhone : which === 'recruitment' ? settings.recruitmentPhone : which === 'main' ? settings.phone : null
+  return value ? { label: value, href: `tel:${value.replace(/[^\d+]/g, '')}` } : null
+}
+
 export const whatsappHref = (settings: Pick<SiteSetting, 'whatsapp' | 'whatsappMessage'>, text?: string) => {
   const digits = (settings.whatsapp ?? '').replace(/\D/g, '').replace(/^0/, '')
   const number = digits.length === 10 ? `91${digits}` : digits

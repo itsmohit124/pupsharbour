@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { sniffResume, MAX_RESUME_BYTES } from '@/lib/fileType'
+import { MAX_DOCUMENT_BYTES as MAX_RESUME_BYTES, sniffDocument as sniffResume } from '@/lib/fileType'
 import { createRateLimiter } from '@/lib/rateLimit'
-import { applicationSchema, enquirySchema } from '@/lib/validation/forms'
+import { applicationSchema, enquirySchema, hiringSchema } from '@/lib/validation/forms'
 
 const enquiry = {
   companyName: 'Acme Pvt Ltd',
@@ -99,5 +99,41 @@ describe('createRateLimiter', () => {
     expect(limit('ip2')).toBe(true) // independent keys
     now = 1001
     expect(limit('ip1')).toBe(true)
+  })
+})
+
+describe('hiringSchema', () => {
+  const hiring = {
+    companyName: 'Acme Pvt Ltd',
+    contactPerson: 'Asha Patel',
+    email: 'asha@acme.in',
+    phone: '98765 43210',
+    position: 'Production Engineer',
+    vacancies: '3',
+    location: 'Ahmedabad',
+    experience: '3–5 years',
+    timeline: 'Within 30 days',
+    consent: true,
+    website: '',
+  }
+  it('accepts a complete hiring requirement and coerces vacancies to a number', () => {
+    const r = hiringSchema.safeParse(hiring)
+    expect(r.success).toBe(true)
+    expect(r.success && r.data.vacancies).toBe(3)
+    expect(r.success && r.data.phone).toBe('+919876543210')
+  })
+  it('requires company, contact, email, phone, position and consent', () => {
+    const r = hiringSchema.safeParse({ website: '' })
+    const fields = r.success ? [] : r.error.issues.map((i) => i.path[0])
+    expect(fields).toEqual(expect.arrayContaining(['companyName', 'contactPerson', 'email', 'phone', 'position', 'consent']))
+  })
+  it('rejects silly vacancy counts', () => {
+    expect(hiringSchema.safeParse({ ...hiring, vacancies: '0' }).success).toBe(false)
+    expect(hiringSchema.safeParse({ ...hiring, vacancies: '100000' }).success).toBe(false)
+    expect(hiringSchema.safeParse({ ...hiring, vacancies: 'many' }).success).toBe(false)
+  })
+  it('allows vacancies to be left empty', () => {
+    const r = hiringSchema.safeParse({ ...hiring, vacancies: '' })
+    expect(r.success && r.data.vacancies).toBeUndefined()
   })
 })

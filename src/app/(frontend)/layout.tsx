@@ -6,6 +6,7 @@ import type { ReactNode } from 'react'
 
 import { Footer, WhatsAppFab } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
+import { LivePreviewRefresh } from '@/components/preview/LivePreviewRefresh'
 import { getSiteData } from '@/lib/data'
 
 import './globals.css'
@@ -47,6 +48,7 @@ export default async function FrontendLayout({ children }: { children: ReactNode
   return (
     <html lang="en-IN" className={`${inter.variable} ${playfair.variable}`}>
       <body>
+        {preview && <LivePreviewRefresh />}
         {preview && (
           <div className="bg-gold-500 py-2 text-center text-sm font-semibold text-ink">
             Preview mode: you are seeing draft content.{' '}

@@ -4,7 +4,7 @@
  */
 import path from 'path'
 import { fileURLToPath } from 'url'
-import type { CollectionAfterChangeHook, CollectionConfig, Field } from 'payload'
+import type { Access, CollectionAfterChangeHook, CollectionConfig, Field } from 'payload'
 
 import { allow, nobody } from '@/access'
 import { can, type Principal } from '@/access/permissions'
@@ -50,6 +50,17 @@ function notify(kind: string, summary: (doc: Record<string, unknown>) => string)
   }
 }
 
+/**
+ * Enquiries hold two kinds of submission. Admins see both; recruiters (`hiring.read`) see only
+ * employer hiring requirements; business enquiries stay admin-only.
+ */
+const enquiryAccess: Access = ({ req }) => {
+  const user = req.user as Principal
+  if (can(user, 'enquiries.read')) return true
+  if (can(user, 'hiring.read')) return { type: { equals: 'hiring' } }
+  return false
+}
+
 const enquiryAudit = auditHooks('enquiries')
 export const Enquiries: CollectionConfig = {
   slug: 'enquiries',
@@ -57,22 +68,42 @@ export const Enquiries: CollectionConfig = {
   admin: {
     group: 'Submissions',
     useAsTitle: 'companyName',
-    defaultColumns: ['createdAt', 'companyName', 'contactPerson', 'phone', 'status'],
-    hidden: ({ user }) => !can(user as Principal, 'enquiries.read'),
+    defaultColumns: ['createdAt', 'type', 'companyName', 'contactPerson', 'position', 'phone', 'status'],
+    hidden: ({ user }) => !can(user as Principal, 'enquiries.read') && !can(user as Principal, 'hiring.read'),
+    description: 'Business enquiries (Contact page) and hiring requirements (For Employers page). Filter by Type.',
   },
   defaultSort: '-createdAt',
   access: {
-    read: allow('enquiries.read'),
-    update: allow('enquiries.read'),
+    read: enquiryAccess,
+    update: enquiryAccess,
     create: nobody,
     delete: allow('enquiries.manage'),
   },
   hooks: {
-    afterChange: [enquiryAudit.afterChange, notify('business enquiry', (d) => `${d.companyName} (${d.contactPerson}, ${d.phone})`)],
+    afterChange: [
+      enquiryAudit.afterChange,
+      notify('enquiry', (d) =>
+        d.type === 'hiring'
+          ? `Hiring requirement: ${d.position} × ${d.vacancies ?? '?'} at ${d.companyName} (${d.contactPerson}, ${d.phone})`
+          : `Business enquiry: ${d.companyName} (${d.contactPerson}, ${d.phone})`,
+      ),
+    ],
     afterDelete: [enquiryAudit.afterDelete],
   },
   fields: [
     status(['new', 'contacted', 'qualified', 'won', 'lost']),
+    {
+      name: 'type',
+      type: 'select',
+      required: true,
+      defaultValue: 'business',
+      index: true,
+      options: [
+        { label: 'Business enquiry', value: 'business' },
+        { label: 'Hiring requirement', value: 'hiring' },
+      ],
+      admin: { position: 'sidebar', readOnly: true },
+    },
     ...[
       { name: 'companyName', type: 'text', required: true },
       { name: 'contactPerson', type: 'text', required: true },
@@ -82,7 +113,20 @@ export const Enquiries: CollectionConfig = {
       { name: 'industry', type: 'text' },
       { name: 'organisationSize', type: 'text' },
       { name: 'services', type: 'relationship', relationTo: 'services', hasMany: true },
-      { name: 'message', type: 'textarea', required: true },
+      { name: 'message', label: 'Requirement / message', type: 'textarea' },
+      {
+        type: 'collapsible',
+        label: 'Hiring requirement',
+        admin: { condition: (data: Record<string, unknown>) => data?.type === 'hiring' },
+        fields: [
+          { name: 'position', label: 'Position / job title', type: 'text' },
+          { name: 'vacancies', label: 'Number of vacancies', type: 'number' },
+          { name: 'location', label: 'Job location', type: 'text' },
+          { name: 'experience', label: 'Experience required', type: 'text' },
+          { name: 'timeline', label: 'Expected hiring timeline', type: 'text' },
+          { name: 'jobDescription', type: 'upload', relationTo: 'job-descriptions' },
+        ],
+      },
     ].map((f) => ro(f as Field)),
     ...internal,
   ],
@@ -147,6 +191,32 @@ export const Resumes: CollectionConfig = {
   upload: {
     // Outside /public and served only through Payload's access-checked file route.
     staticDir: path.resolve(dirname, '../../data/resumes'),
+    mimeTypes: [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ],
+  },
+  fields: [],
+}
+
+/** Private job-description files attached to hiring requirements. */
+export const JobDescriptions: CollectionConfig = {
+  slug: 'job-descriptions',
+  labels: { singular: 'Job description file', plural: 'Job description files' },
+  admin: {
+    group: 'Submissions',
+    hidden: ({ user }) => !can(user as Principal, 'enquiries.read') && !can(user as Principal, 'hiring.read'),
+    description: 'Private files. Only staff who can see hiring requirements can download them.',
+  },
+  access: {
+    read: ({ req }) => can(req.user as Principal, 'enquiries.read') || can(req.user as Principal, 'hiring.read'),
+    create: nobody,
+    update: nobody,
+    delete: allow('enquiries.manage'),
+  },
+  upload: {
+    staticDir: path.resolve(dirname, '../../data/job-descriptions'),
     mimeTypes: [
       'application/pdf',
       'application/msword',

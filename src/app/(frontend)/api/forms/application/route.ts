@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto'
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
-import { sniffResume } from '@/lib/fileType'
+import { sniffDocument } from '@/lib/fileType'
 import { guard, json, respond } from '@/lib/forms/guard'
 import { applicationSchema, fieldErrors } from '@/lib/validation/forms'
 
@@ -29,7 +29,7 @@ async function handle(req: Request, form: FormData): Promise<Response> {
     return json({ error: 'Please attach your resume.', fields: { resume: 'Please attach your resume (PDF, DOC or DOCX, max 5 MB).' } }, 400)
   }
   const bytes = new Uint8Array(await file.arrayBuffer())
-  const sniff = sniffResume(bytes, file.name)
+  const sniff = sniffDocument(bytes, file.name)
   if (!sniff.ok) return json({ error: sniff.reason, fields: { resume: sniff.reason } }, 400)
 
   const payload = await getPayload({ config })

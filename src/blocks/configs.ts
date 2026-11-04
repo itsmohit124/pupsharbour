@@ -49,21 +49,52 @@ const sectionSettings: Field = {
 }
 
 const heading = (required = true): Field[] => [
-  { name: 'eyebrow', type: 'text', admin: { description: 'Small label above the heading.' } },
-  { name: 'heading', type: 'text', required },
+  { name: 'eyebrow', type: 'text', admin: { description: 'Small uppercase label shown above the headline.' } },
+  { name: 'heading', type: 'text', required, admin: { description: 'Main headline of this section.' } },
   {
     name: 'highlight',
     type: 'text',
-    admin: { description: 'Words at the end of the heading shown in gold (optional).' },
+    admin: { description: 'Words shown in gold italics right after the headline (optional).' },
   },
-  { name: 'intro', type: 'textarea' },
+  { name: 'intro', type: 'textarea', admin: { description: 'Paragraph directly under the headline.' } },
 ]
+
+/** Data field names (incl. nested array/group fields), so the admin guide lists only what this block has. */
+function fieldNames(fields: Field[]): string[] {
+  return fields.flatMap((f) => {
+    const own = 'name' in f && f.name && f.type !== 'ui' ? [f.name] : []
+    const nested = 'fields' in f && Array.isArray(f.fields) ? fieldNames(f.fields as Field[]) : []
+    return [...own, ...nested]
+  })
+}
 
 const block = (slug: string, label: string, fields: Field[], plural?: string): Block => ({
   slug,
   labels: { singular: label, plural: plural ?? `${label} sections` },
   interfaceName: `${slug[0].toUpperCase()}${slug.slice(1)}Block`,
-  fields: [...fields, sectionSettings],
+  admin: {
+    // Collapsed row shows the section type, its live headline, item count and Hidden badge.
+    components: { Label: { path: '/components/admin/SectionRowLabel#SectionRowLabel', clientProps: { blockSlug: slug } } },
+    // Real screenshot of this section, shown in the "Add section" picker.
+    images: { thumbnail: { url: `/admin-guide/sections/${slug}.png`, alt: `${label} section preview` } },
+  },
+  fields: [
+    {
+      // "About this section": preview image + where every field appears on the site.
+      name: 'sectionGuide',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: {
+            path: '/components/admin/SectionGuide#SectionGuide',
+            clientProps: { blockSlug: slug, fieldNames: [...new Set(fieldNames([...fields, sectionSettings]))] },
+          },
+        },
+      },
+    },
+    ...fields,
+    sectionSettings,
+  ],
 })
 
 const iconItems = (name: string, label: string, withDescription = true): Field => ({
@@ -156,7 +187,54 @@ export const RichContent = block('richContent', 'Text', [
 
 export const Pillars = block('pillars', 'Pillars', [
   ...heading(),
-  iconItems('items', 'Pillars'),
+  {
+    name: 'items',
+    label: 'Pillars',
+    type: 'array',
+    admin: { initCollapsed: true },
+    fields: [
+      { type: 'row', fields: [iconField(), { name: 'title', type: 'text', required: true }] },
+      { name: 'description', type: 'textarea' },
+      {
+        name: 'bullets',
+        label: 'Focus areas (optional)',
+        type: 'array',
+        fields: [{ name: 'text', type: 'text', required: true }],
+      },
+    ],
+  },
+])
+
+export const AudienceSplit = block('audienceSplit', 'Audience choice (Employer / Job seeker)', [
+  ...heading(false),
+  {
+    name: 'cards',
+    type: 'array',
+    minRows: 1,
+    maxRows: 3,
+    fields: [
+      { type: 'row', fields: [iconField(), { name: 'eyebrow', type: 'text' }, { name: 'title', type: 'text', required: true }] },
+      { name: 'text', type: 'textarea' },
+      {
+        name: 'bullets',
+        type: 'array',
+        fields: [{ name: 'text', type: 'text', required: true }],
+      },
+      {
+        name: 'phone',
+        type: 'select',
+        defaultValue: 'none',
+        admin: { description: 'Show one of the phone numbers from Site settings on this card.' },
+        options: [
+          { label: 'No phone', value: 'none' },
+          { label: 'Main phone', value: 'main' },
+          { label: 'Business enquiries phone', value: 'business' },
+          { label: 'Recruitment phone', value: 'recruitment' },
+        ],
+      },
+      linkField('cta', 'Button'),
+    ],
+  },
 ])
 
 export const Features = block('features', 'Feature grid', [
@@ -206,6 +284,7 @@ export const Process = block('process', 'Process steps', [
     ],
   },
   { name: 'showActivities', type: 'checkbox', defaultValue: false },
+  linkField('cta', 'Button'),
 ])
 
 export const Packages = block('packages', 'Engagement packages', [
@@ -300,6 +379,12 @@ export const EnquiryForm = block('enquiryForm', 'Business enquiry form', [
   { name: 'successMessage', type: 'textarea', defaultValue: 'Thank you. Our team will contact you within one business day.' },
 ])
 
+export const HiringForm = block('hiringForm', 'Employer hiring-requirement form', [
+  ...heading(),
+  { name: 'submitLabel', type: 'text', defaultValue: 'Submit Hiring Requirement' },
+  { name: 'successMessage', type: 'textarea', defaultValue: 'Thank you. Our recruitment team will contact you to understand your hiring needs.' },
+])
+
 export const ApplicationForm = block('applicationForm', 'Job-seeker (resume) form', [
   ...heading(),
   { name: 'submitLabel', type: 'text', defaultValue: 'Submit Your Resume' },
@@ -315,7 +400,7 @@ export const ContactInfo = block('contactInfo', 'Contact details', [
 export const ALL_BLOCKS: Block[] = [
   Hero, PageHeader, Stats, RichContent, Pillars, Features, ServiceEcosystem, ServicesDetail,
   Process, Packages, List, VisionMission, Industries, LiveDemo, Testimonials, InsightsList, CTA,
-  EnquiryForm, ApplicationForm, ContactInfo,
+  EnquiryForm, HiringForm, ApplicationForm, ContactInfo, AudienceSplit,
 ]
 
 export const BLOCK_SLUGS = ALL_BLOCKS.map((b) => b.slug)

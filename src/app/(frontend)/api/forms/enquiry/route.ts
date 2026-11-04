@@ -39,7 +39,7 @@ async function handle(req: Request, body: Record<string, unknown>): Promise<Resp
 
   await payload.create({
     collection: 'enquiries',
-    data: { ...data, services, consent, status: 'new' },
+    data: { ...data, services, consent, type: 'business', status: 'new' },
     overrideAccess: true, // creation is closed to the API; this validated route is the only way in
   })
   return json({ ok: true })

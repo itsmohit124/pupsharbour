@@ -4,6 +4,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 
 import { POST as postApplication } from '@/app/(frontend)/api/forms/application/route'
 import { POST as postEnquiry } from '@/app/(frontend)/api/forms/enquiry/route'
+import { POST as postHiring } from '@/app/(frontend)/api/forms/hiring/route'
 import { seed } from '@/seed'
 
 let payload: Payload
@@ -143,5 +144,38 @@ describe('POST /api/forms/application', () => {
 
   it('resumes are not readable anonymously', async () => {
     await expect(payload.find({ collection: 'resumes', overrideAccess: false })).rejects.toThrow()
+  })
+})
+
+describe('POST /api/forms/hiring', () => {
+  const MIN_PDF = '%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n2 0 obj<</Type/Pages/Kids[]/Count 0>>endobj\nxref\n0 3\n0000000000 65535 f \ntrailer<</Size 3/Root 1 0 R>>\nstartxref\n0\n%%EOF\n'
+  const req = (file: File | null, extra: Record<string, string> = {}) => {
+    const fd = new FormData()
+    const base = { companyName: 'Hire Co', contactPerson: 'HR Head', email: 'hr@hire.in', phone: '9876543210', position: 'Quality Engineer', vacancies: '2', location: 'Vadodara', consent: 'true', website: '' }
+    for (const [k, v] of Object.entries({ ...base, ...extra })) fd.set(k, v)
+    if (file) fd.set('jobDescription', file)
+    return new Request(`${ORIGIN}/api/forms/hiring`, { method: 'POST', headers: { Origin: ORIGIN, 'x-forwarded-for': `10.2.0.${Math.floor(Math.random() * 250)}` }, body: fd })
+  }
+
+  it('stores a hiring requirement (type=hiring) with an optional private JD', async () => {
+    const res = await postHiring(req(new File([new TextEncoder().encode(MIN_PDF)], 'JD.pdf', { type: 'application/pdf' })))
+    expect(res.status).toBe(200)
+    const { docs } = await payload.find({ collection: 'enquiries', where: { type: { equals: 'hiring' } }, depth: 1, overrideAccess: true })
+    const doc = docs.find((d) => d.companyName === 'Hire Co')!
+    expect(doc).toMatchObject({ position: 'Quality Engineer', vacancies: 2, location: 'Vadodara', phone: '+919876543210', status: 'new' })
+    expect((doc.jobDescription as { filename: string }).filename).toMatch(/^[0-9a-f-]{36}\.pdf$/)
+    await expect(payload.find({ collection: 'job-descriptions', overrideAccess: false })).rejects.toThrow()
+  })
+
+  it('works without a JD file', async () => {
+    expect((await postHiring(req(null, { companyName: 'No JD Co' }))).status).toBe(200)
+  })
+
+  it('rejects a disguised JD file and a missing position', async () => {
+    const png = new File([new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0, 0, 0, 0])], 'jd.pdf', { type: 'application/pdf' })
+    expect((await postHiring(req(png))).status).toBe(400)
+    const res = await postHiring(req(null, { position: '' }))
+    expect(res.status).toBe(400)
+    expect((await res.json()).fields.position).toBeTruthy()
   })
 })

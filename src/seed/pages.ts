@@ -59,9 +59,9 @@ export const PAGES: SeedPage[] = [
     title: 'Home',
     slug: 'home',
     meta: {
-      title: 'Pups Harbour Consultancy | HR, Recruitment & Business Growth Partner',
+      title: 'HR Consultancy & Recruitment Agency in Ahmedabad | Pups Harbour',
       description:
-        'Talent acquisition, staffing, HR policies, PMS, statutory compliance, POSH and business strategy for startups, MSMEs and growing organisations across India.',
+        'HR consultancy and recruitment agency in Ahmedabad, Gujarat: talent acquisition, staffing solutions, payroll and statutory compliance, HR policies, PMS, POSH and business strategy for startups, MSMEs and growing organisations.',
     },
     layout: [
       {
@@ -96,6 +96,33 @@ export const PAGES: SeedPage[] = [
         ],
       },
       {
+        blockType: 'audienceSplit',
+        eyebrow: 'How can we help you?',
+        heading: 'Your People. Your Growth.',
+        highlight: 'Our Commitment.',
+        intro: 'Building stronger businesses through the right talent, smarter HR solutions and strategic business consulting.',
+        cards: [
+          {
+            icon: 'building',
+            eyebrow: "I'm an Employer",
+            title: 'Find the Right Talent',
+            text: 'From finding the right professionals to building effective HR systems, we help businesses move forward with confidence.',
+            bullets: ['Recruitment & staffing across industries', 'HR systems, policies & compliance', 'Business & organisational consulting'].map(t),
+            phone: 'business',
+            cta: link('Submit Hiring Requirement', '/employers#hiring'),
+          },
+          {
+            icon: 'usersearch',
+            eyebrow: "I'm a Job Seeker",
+            title: 'Submit Your Resume',
+            text: 'Share your updated resume and let our recruitment team explore opportunities aligned with your qualifications, skills and aspirations.',
+            bullets: ['Opportunities across multiple industries', 'Professional recruitment coordination', 'Interview scheduling assistance'].map(t),
+            phone: 'recruitment',
+            cta: link('Submit Your Resume', '/careers#apply'),
+          },
+        ],
+      },
+      {
         blockType: 'richContent',
         eyebrow: 'Who we are',
         heading: 'Build Your Business. Strengthen Your People.',
@@ -106,6 +133,7 @@ export const PAGES: SeedPage[] = [
           'At Pups Harbour Consultancy, we bring Brand, Marketing, HR and Business Strategy together to help startups, MSMEs and growing organisations build stronger foundations and achieve sustainable growth.',
           'A multidisciplinary growth firm, we connect brand positioning, business strategy and human capital into one coherent growth engine. From organisational assessment and HR transformation to talent acquisition, business strategy and brand development, we deliver integrated solutions tailored to your business journey.',
           'Our approach goes beyond traditional consultancy. We work alongside businesses to strengthen their people, processes, positioning and performance.',
+          'Since 2021, we have been supporting businesses with recruitment, staffing, HR operations, payroll management, statutory compliance and organisational development.',
         ].map(t),
         closing: 'A harbour for your business journey.',
       },
@@ -129,7 +157,12 @@ export const PAGES: SeedPage[] = [
           { icon: 'palette', title: 'Brand Strategy', description: 'Building strong brand identities, positioning and market differentiation to create meaningful connections with customers.' },
           { icon: 'megaphone', title: 'Marketing Strategy', description: 'Developing marketing approaches that improve brand visibility, customer engagement and business opportunities.' },
           { icon: 'team', title: 'HR & People Consulting', description: 'Transforming people management through structured HR systems, talent acquisition, performance management and employee development.' },
-          { icon: 'compass', title: 'Business Strategy', description: 'Helping organisations assess their business, optimise operations and develop strategic roadmaps for sustainable growth.' },
+          {
+            icon: 'compass',
+            title: 'Business Strategy',
+            description: 'Helping organisations assess their business, optimise operations and develop strategic roadmaps for sustainable growth.',
+            bullets: ['Organisational Structuring', 'Business Process Improvement', 'Management Advisory', 'Operational Efficiency', 'Business Growth Strategies', 'Workforce Planning', 'Business Development Support'].map(t),
+          },
         ],
       },
       {
@@ -156,6 +189,7 @@ export const PAGES: SeedPage[] = [
         intro: 'We understand your organisation, develop a customised strategy, implement practical solutions and continuously evaluate performance to drive improvement.',
         steps: approachSteps,
         showActivities: false,
+        cta: link('See Our Approach & Packages', '/approach'),
       },
       {
         blockType: 'industries',
@@ -199,7 +233,10 @@ export const PAGES: SeedPage[] = [
   {
     title: 'About Us',
     slug: 'about',
-    meta: { description: 'Pups Harbour Consultancy is a multidisciplinary growth partner bringing Brand, Marketing, HR and Strategy together for startups, MSMEs and growing organisations.' },
+    meta: {
+      title: 'About Pups Harbour Consultancy | HR Consulting since 2021',
+      description: 'Established in 2021, Pups Harbour Consultancy is a multidisciplinary growth partner bringing Brand, Marketing, HR and Strategy together for startups, MSMEs and growing organisations in Gujarat and across India.',
+    },
     layout: [
       {
         blockType: 'pageHeader',
@@ -217,11 +254,15 @@ export const PAGES: SeedPage[] = [
         highlight: 'customised solutions',
         layout: 'split',
         paragraphs: [
+          'At Pups Harbour Consultancy, we believe that people are the most valuable asset of any organisation.',
+          'Established in 2021, Pups Harbour Consultancy was built with a vision to help businesses overcome people-management challenges, streamline HR operations and achieve sustainable growth.',
           'We understand that every organisation faces unique challenges as it grows.',
           'Some businesses need stronger HR systems. Others need organisational restructuring, improved performance management, better talent acquisition, stronger brand positioning or a clear business strategy.',
           'Our role is to understand these challenges and provide integrated, practical and customised solutions.',
           'We support startups, MSMEs and growing organisations across sectors through a combination of strategic thinking, professional expertise and implementation-focused consulting.',
+          'Our approach combines industry understanding, professional coordination and a commitment to building long-term relationships.',
         ].map(t),
+        closing: 'Guiding People. Building Futures.',
       },
       {
         blockType: 'visionMission',
@@ -245,7 +286,10 @@ export const PAGES: SeedPage[] = [
         highlight: 'Approach',
         intro: 'Like a harbour that provides direction, stability and safety, Pups Harbour Consultancy aims to guide businesses through their growth journey.',
         layout: 'centered',
-        paragraphs: [t('We believe that sustainable business growth requires:')],
+        paragraphs: [
+          'We believe that business success is not achieved through recruitment alone. It requires the right people, structured processes, effective management and a clear growth strategy.',
+          'We believe that sustainable business growth requires:',
+        ].map(t),
         bullets: [
           'Clear direction and strategic planning.',
           'Strong organisational foundations.',
@@ -253,7 +297,7 @@ export const PAGES: SeedPage[] = [
           'Structured systems and processes.',
           'Continuous evaluation and improvement.',
         ].map(t),
-        closing: 'Our philosophy is simple: help businesses navigate challenges with confidence and move towards sustainable success.',
+        closing: 'Right People. Right Processes. Better Performance.',
         settings: dark,
       },
       {
@@ -270,6 +314,9 @@ export const PAGES: SeedPage[] = [
           { icon: 'lightbulb', title: 'Innovation', description: 'Encouraging new ideas, digitalisation and better ways of working.' },
           { icon: 'award', title: 'Excellence', description: 'Maintaining professional standards and continuously improving our approach.' },
           { icon: 'target', title: 'Results', description: 'Focusing on meaningful business outcomes rather than recommendations alone.' },
+          { icon: 'briefcase', title: 'Professionalism', description: 'Maintaining professional standards throughout our interactions and service delivery.' },
+          { icon: 'usercheck', title: 'Customer Focus', description: 'Every organisation has unique requirements. We focus on solutions that address individual business needs.' },
+          { icon: 'trending', title: 'Continuous Improvement', description: 'Learning, adapting and continuously improving our services.' },
         ],
       },
       {
@@ -293,7 +340,10 @@ export const PAGES: SeedPage[] = [
   {
     title: 'Our Services',
     slug: 'services',
-    meta: { description: '13 HR, recruitment, compliance and business consulting services: policy drafting, 360° surveys, PMS, talent acquisition, staffing, HRMS, POSH, statutory audits and more.' },
+    meta: {
+      title: 'Recruitment, Payroll & HR Consulting Services | Pups Harbour',
+      description: '13 HR, recruitment, payroll, compliance and business consulting services: policy drafting, 360° surveys, PMS, talent acquisition, staffing solutions, HRMS, POSH, PF/ESIC statutory audits and more.',
+    },
     layout: [
       {
         blockType: 'pageHeader',
@@ -460,11 +510,111 @@ export const PAGES: SeedPage[] = [
     ],
   },
 
+  // ───────────────────────────── FOR EMPLOYERS ─────────────────────────────
+  {
+    title: 'For Employers',
+    slug: 'employers',
+    meta: {
+      title: 'Recruitment & Staffing Solutions for Businesses | Pups Harbour',
+      description:
+        'Recruitment agency in Ahmedabad, Gujarat for engineering, manufacturing, pharma, FMCG, IT, construction, sales, finance and HR hiring. Share your hiring requirement with Pups Harbour Consultancy.',
+    },
+    layout: [
+      {
+        blockType: 'pageHeader',
+        breadcrumb: 'For Employers',
+        eyebrow: 'Your hiring & HR partner for sustainable growth',
+        heading: 'Build Your Team.',
+        highlight: 'Strengthen Your Business.',
+        intro: 'Finding the right talent and managing people effectively can be challenging for growing organisations.',
+      },
+      {
+        blockType: 'richContent',
+        eyebrow: 'For employers',
+        heading: 'Recruitment and HR support',
+        highlight: 'that fits your business',
+        layout: 'split',
+        paragraphs: [
+          'Pups Harbour Consultancy works with employers to simplify recruitment, strengthen HR functions and support workforce management.',
+          'Whether you are a startup, MSME or established organisation, we help you access professional HR and recruitment support.',
+        ].map(t),
+      },
+      {
+        blockType: 'list',
+        eyebrow: 'Recruitment solutions for every business need',
+        heading: 'We Support Hiring',
+        highlight: 'Requirements Across',
+        variant: 'tiles',
+        items: [
+          { icon: 'factory', text: 'Engineering & Manufacturing' },
+          { icon: 'heart', text: 'Pharmaceuticals & Healthcare' },
+          { icon: 'cart', text: 'FMCG & Consumer Products' },
+          { icon: 'laptop', text: 'Information Technology' },
+          { icon: 'hardhat', text: 'Infrastructure & Construction' },
+          { icon: 'trending', text: 'Sales & Distribution' },
+          { icon: 'wallet', text: 'Finance & Accounts' },
+          { icon: 'team', text: 'Human Resources' },
+          { icon: 'clipboard', text: 'Administration & Operations' },
+        ],
+        settings: soft,
+      },
+      {
+        blockType: 'process',
+        eyebrow: 'Our recruitment process',
+        heading: 'Six Steps From Requirement to',
+        highlight: 'Joining',
+        showActivities: false,
+        steps: [
+          { icon: 'clipboard', title: 'Understand Your Requirement', description: 'We understand your job description, experience expectations, qualifications, salary budget and organisational requirements.' },
+          { icon: 'search', title: 'Talent Sourcing', description: 'We identify potential candidates through relevant sourcing channels and professional networks.' },
+          { icon: 'usersearch', title: 'Screening & Shortlisting', description: 'We evaluate candidate profiles against the agreed job requirements.' },
+          { icon: 'calendar', title: 'Interview Coordination', description: 'We coordinate interview schedules and facilitate communication between employers and candidates.' },
+          { icon: 'handshake', title: 'Selection & Offer Coordination', description: 'We support the selection process and coordinate offer-related communication.' },
+          { icon: 'usercheck', title: 'Joining & Follow-Up', description: 'We coordinate joining formalities and follow up on the placement as agreed.' },
+        ],
+      },
+      {
+        blockType: 'features',
+        heading: 'Why Partner',
+        highlight: 'With Us?',
+        variant: 'aside',
+        columns: '3',
+        items: [
+          { icon: 'usercheck', title: 'Dedicated Recruitment Coordination', description: 'A single point of contact who manages your hiring end to end.' },
+          { icon: 'layers', title: 'Multiple Industry Hiring Capabilities', description: 'Experience across engineering, manufacturing, pharma, FMCG, IT and more.' },
+          { icon: 'target', title: 'Focus on Relevant Candidate Profiles', description: 'Shortlists matched to your requirement, not bulk CVs.' },
+          { icon: 'workflow', title: 'Flexible Hiring Support', description: 'Permanent, contract, project-based and volume hiring.' },
+          { icon: 'eye', title: 'Transparent Communication', description: 'Clear updates at every stage of the process.' },
+          { icon: 'handshake', title: 'Relationship-Driven Approach', description: 'We build long-term partnerships, not one-off placements.' },
+        ],
+        settings: soft,
+      },
+      {
+        blockType: 'hiringForm',
+        eyebrow: 'Employer enquiry',
+        heading: 'Let Us Help You Find the',
+        highlight: 'Right Talent.',
+        intro: 'Share your hiring requirements with us, and our team will connect with you to understand your needs.',
+        submitLabel: 'Submit Hiring Requirement',
+        successMessage: 'Thank you. Our recruitment team will contact you shortly to understand your hiring needs.',
+      },
+      finalCta(
+        'Looking for the Right Solution for',
+        'Your Business?',
+        "Let's understand your requirements and develop a solution that works for your organisation.",
+        link('Discuss Your Requirements', '/contact#enquiry'),
+      ),
+    ],
+  },
+
   // ───────────────────────────── CAREERS ─────────────────────────────
   {
     title: 'Careers',
     slug: 'careers',
-    meta: { description: 'Submit your resume to Pups Harbour Consultancy and explore career opportunities across engineering, sales, finance, HR, IT, operations, healthcare and leadership roles.' },
+    meta: {
+      title: 'Jobs in Gujarat | Submit Your Resume | Pups Harbour',
+      description: 'Submit your resume to Pups Harbour Consultancy and explore job opportunities in Ahmedabad, Vadodara, Gujarat and across India in engineering, manufacturing, sales, finance, HR, IT, supply chain, healthcare and leadership roles.',
+    },
     layout: [
       {
         blockType: 'pageHeader',
@@ -472,7 +622,7 @@ export const PAGES: SeedPage[] = [
         eyebrow: 'Careers',
         heading: 'Your Talent. Your Opportunity.',
         highlight: 'Your Future.',
-        intro: 'At Pups Harbour Consultancy, we believe every professional deserves the right opportunity to grow.',
+        intro: 'Your next career opportunity starts here. At Pups Harbour Consultancy, we believe every professional deserves the right opportunity to grow.',
       },
       {
         blockType: 'richContent',
@@ -482,7 +632,23 @@ export const PAGES: SeedPage[] = [
         paragraphs: [
           'We connect candidates with organisations seeking talented, skilled and motivated professionals across multiple industries and business functions.',
           'Whether you are starting your career or looking for your next professional opportunity, we are here to support your journey.',
+          'We help you explore opportunities aligned with your qualifications, skills and professional aspirations.',
         ].map(t),
+      },
+      {
+        blockType: 'features',
+        eyebrow: 'For job seekers',
+        heading: 'Why Apply Through',
+        highlight: 'Pups Harbour?',
+        columns: '3',
+        variant: 'cards',
+        items: [
+          { icon: 'briefcase', title: 'Diverse Job Opportunities', description: 'Access to a wide range of roles with organisations that are hiring.' },
+          { icon: 'layers', title: 'Multiple Industries', description: 'Opportunities across engineering, manufacturing, IT, sales, finance, healthcare and more.' },
+          { icon: 'handshake', title: 'Professional Recruitment Coordination', description: 'A dedicated team that coordinates between you and the employer.' },
+          { icon: 'calendar', title: 'Interview Scheduling Assistance', description: 'We schedule interviews and keep communication clear.' },
+          { icon: 'megaphone', title: 'Career Opportunity Updates', description: 'Hear about relevant openings that match your profile.' },
+        ],
       },
       {
         blockType: 'list',
@@ -498,6 +664,9 @@ export const PAGES: SeedPage[] = [
           { icon: 'laptop', text: 'Information Technology' },
           { icon: 'clipboard', text: 'Administration' },
           { icon: 'boxes', text: 'Operations & Supply Chain' },
+          { icon: 'package', text: 'Supply Chain & Logistics' },
+          { icon: 'clipboard', text: 'Operations & Project Management' },
+          { icon: 'laptop', text: 'IT & Software' },
           { icon: 'heart', text: 'Pharmaceuticals & Healthcare' },
           { icon: 'crown', text: 'Management & Leadership' },
         ],
@@ -506,11 +675,11 @@ export const PAGES: SeedPage[] = [
       {
         blockType: 'applicationForm',
         eyebrow: 'Submit your resume',
-        heading: 'Your Next Opportunity Could',
-        highlight: 'Start Here.',
-        intro: 'Share your updated resume with our recruitment team to explore relevant career opportunities.',
+        heading: 'Take the Next Step in',
+        highlight: 'Your Career.',
+        intro: 'Your next opportunity could start here. Share your updated resume with our recruitment team to explore suitable opportunities.',
         submitLabel: 'Submit Your Resume',
-        note: 'All applications are subject to available opportunities, client requirements and candidate suitability.',
+        note: 'Registration does not guarantee employment or an interview. Opportunities are subject to client requirements and candidate suitability.',
         successMessage: 'Thank you for sharing your profile. Our recruitment team will review it and contact you when a suitable opportunity matches.',
       },
     ],
@@ -520,7 +689,10 @@ export const PAGES: SeedPage[] = [
   {
     title: 'Contact Us',
     slug: 'contact',
-    meta: { description: 'Contact Pups Harbour Consultancy for HR consulting, recruitment, staffing, compliance, business strategy or brand development.' },
+    meta: {
+      title: 'Contact Pups Harbour Consultancy | HR & Recruitment in Gujarat',
+      description: 'Contact Pups Harbour Consultancy in Gujarat for HR consulting, recruitment, staffing, payroll and compliance, business strategy or brand development. Call, WhatsApp or send an enquiry.',
+    },
     layout: [
       {
         blockType: 'pageHeader',
@@ -528,7 +700,31 @@ export const PAGES: SeedPage[] = [
         eyebrow: 'Contact us',
         heading: "Let's Build Your Business",
         highlight: 'Together.',
-        intro: 'Every successful partnership begins with a conversation.',
+        intro: 'Whether you are an employer looking for reliable recruitment and HR support or a professional searching for new career opportunities, we would be happy to hear from you.',
+      },
+      {
+        blockType: 'audienceSplit',
+        eyebrow: "Let's start a conversation",
+        heading: 'Who would you like to',
+        highlight: 'talk to?',
+        cards: [
+          {
+            icon: 'briefcase',
+            eyebrow: 'Business enquiries',
+            title: 'For employers & businesses',
+            text: 'For recruitment partnerships, HR consulting, payroll support and business consulting requirements, connect with our team.',
+            phone: 'business',
+            cta: link('Send Business Enquiry', '/contact#enquiry'),
+          },
+          {
+            icon: 'usersearch',
+            eyebrow: 'Candidate enquiries',
+            title: 'For job seekers',
+            text: 'For job opportunities and resume submissions, contact our recruitment team.',
+            phone: 'recruitment',
+            cta: link('Submit Your Resume', '/careers#apply'),
+          },
+        ],
       },
       {
         blockType: 'contactInfo',
@@ -536,7 +732,7 @@ export const PAGES: SeedPage[] = [
         heading: 'We’re ready to understand your',
         highlight: 'requirements',
         intro: 'Whether you are looking for HR consulting, recruitment, staffing, business strategy or brand development, Pups Harbour Consultancy is ready to understand your requirements.',
-        closing: 'Pups Harbour Consultancy – A Harbour for Your Business Journey.',
+        closing: "Let's Build Better Workplaces and Brighter Careers Together.",
       },
       {
         blockType: 'enquiryForm',
@@ -612,7 +808,11 @@ export const SITE_SETTINGS = {
   whatsappMessage: 'Hello Pups Harbour, I would like to know more about your services.',
   email: 'pups.harbour@gmail.com',
   hours: 'Monday – Friday, 9:00 AM – 6:00 PM',
-  location: 'India',
+  businessPhone: '+91 99985 29394',
+  recruitmentPhone: '+91 97248 75844',
+  location: 'Gujarat, India',
+  website: 'www.pupsharbour.com',
+  foundedYear: 2021,
   linkedin: '',
 }
 
@@ -621,7 +821,7 @@ export const HEADER = {
     { label: 'Home', href: '/', dropdown: 'none', hideWhenEmpty: 'never' },
     { label: 'About Us', href: '/about', dropdown: 'none', hideWhenEmpty: 'never' },
     { label: 'Services', href: '/services', dropdown: 'services', hideWhenEmpty: 'never' },
-    { label: 'Approach', href: '/approach', dropdown: 'none', hideWhenEmpty: 'never' },
+    { label: 'For Employers', href: '/employers', dropdown: 'none', hideWhenEmpty: 'never' },
     { label: 'Industries', href: '/industries', dropdown: 'none', hideWhenEmpty: 'never' },
     { label: 'Insights', href: '/insights', dropdown: 'none', hideWhenEmpty: 'insights' },
     { label: 'Careers', href: '/careers', dropdown: 'none', hideWhenEmpty: 'never' },
@@ -631,12 +831,14 @@ export const HEADER = {
 }
 
 export const FOOTER = {
-  about: 'We connect business strategy, brand positioning and human capital to help organisations build stronger foundations and achieve sustainable growth.',
+  about:
+    'Your trusted partner for Recruitment, Staffing, HR Management and Business Consulting. We connect business strategy, brand positioning and human capital to help organisations build stronger foundations and achieve sustainable growth.',
   quickLinks: [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about' },
     { label: 'Our Services', href: '/services' },
     { label: 'Our Approach', href: '/approach' },
+    { label: 'For Employers', href: '/employers' },
     { label: 'Industries', href: '/industries' },
     { label: 'Insights', href: '/insights' },
     { label: 'Careers', href: '/careers' },

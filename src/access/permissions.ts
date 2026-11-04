@@ -22,6 +22,7 @@ export const CAPABILITIES = [
   'enquiries.manage',
   'applications.read',
   'applications.manage',
+  'hiring.read',
   'users.manage',
   'audit.read',
   'self.edit',
@@ -43,7 +44,7 @@ const GRANTS: Readonly<Record<Role, ReadonlySet<Capability>>> = {
     'self.edit',
   ]),
   contributor: new Set<Capability>(['admin.access', 'content.draft', 'media.upload', 'self.edit']),
-  recruiter: new Set<Capability>(['admin.access', 'applications.read', 'self.edit']),
+  recruiter: new Set<Capability>(['admin.access', 'applications.read', 'hiring.read', 'self.edit']),
 }
 
 /** Roles each role is allowed to hand out. Nobody can grant a role above their own tier. */

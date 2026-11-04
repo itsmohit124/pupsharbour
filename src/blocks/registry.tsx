@@ -11,9 +11,9 @@ import type { Page } from '@/payload-types'
 
 import { Features, List, Packages, Pillars, Process, RichContent, VisionMission } from './components/content'
 import {
-  ContactInfo, CTA, Industries, InsightsList, LiveDemo, ServiceEcosystem, ServicesDetail, Testimonials,
+  AudienceSplit, ContactInfo, CTA, Industries, InsightsList, LiveDemo, ServiceEcosystem, ServicesDetail, Testimonials,
 } from './components/data'
-import { ApplicationFormSection, EnquiryFormSection } from './components/forms'
+import { ApplicationFormSection, EnquiryFormSection, HiringFormSection } from './components/forms'
 import { Hero, PageHeader, Stats } from './components/hero'
 
 export type LayoutBlock = NonNullable<Page['layout']>[number]
@@ -39,6 +39,8 @@ export const BLOCK_RENDERERS = {
   insightsList: InsightsList,
   cta: CTA,
   enquiryForm: EnquiryFormSection,
+  hiringForm: HiringFormSection,
+  audienceSplit: AudienceSplit,
   applicationForm: ApplicationFormSection,
   contactInfo: ContactInfo,
 } satisfies Record<BlockType, Renderer>
@@ -53,7 +55,13 @@ export function RenderBlocks({ layout, ctx }: { layout: Page['layout']; ctx: Sit
     <>
       {visibleBlocks(layout).map((block, i) => {
         const Cmp = BLOCK_RENDERERS[block.blockType] as Renderer | undefined
-        return Cmp ? <Cmp key={block.id ?? i} block={block as never} ctx={ctx} /> : null
+        if (!Cmp) return null
+        // Wrapper lets the admin-image capture script screenshot one section at a time.
+        return (
+          <div key={block.id ?? i} data-block={block.blockType}>
+            <Cmp block={block as never} ctx={ctx} />
+          </div>
+        )
       })}
     </>
   )

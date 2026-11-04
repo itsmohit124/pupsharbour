@@ -5,13 +5,14 @@ import { hrefField, linkField } from '@/fields/common'
 import { revalidateGlobal } from '@/hooks/revalidate'
 import { normalizeIndianMobile } from '@/lib/phone'
 
-const phone = (name: string, label: string) => ({
+const phone = (name: string, label: string, required = true, description?: string) => ({
   name,
   label,
   type: 'text' as const,
-  required: true,
+  required,
+  admin: description ? { description } : undefined,
   validate: (v: string | null | undefined) =>
-    v && normalizeIndianMobile(v) ? true : 'Enter a valid Indian mobile number.',
+    (!required && !v) || (v && normalizeIndianMobile(v)) ? true : 'Enter a valid Indian mobile number.',
 })
 
 export const SiteSettings: GlobalConfig = {
@@ -25,8 +26,10 @@ export const SiteSettings: GlobalConfig = {
     { name: 'tagline', type: 'text', defaultValue: 'Your Partner in Business Growth' },
     { name: 'strapline', type: 'text', defaultValue: 'Guiding People. Building Futures.' },
     { name: 'pillarsLine', type: 'text', defaultValue: 'Brand · Marketing · HR · Strategy' },
-    phone('phone', 'Phone'),
-    phone('whatsapp', 'WhatsApp number'),
+    phone('phone', 'Main phone', true, 'Shown in the header area, footer and contact page.'),
+    phone('whatsapp', 'WhatsApp number', true, 'Used by every WhatsApp button on the site.'),
+    phone('businessPhone', 'Business enquiries phone', false, 'For employers and business clients (Contact page, For Employers).'),
+    phone('recruitmentPhone', 'Recruitment / candidates phone', false, 'For job seekers (Careers and Contact pages).'),
     {
       name: 'whatsappMessage',
       type: 'text',
@@ -34,7 +37,9 @@ export const SiteSettings: GlobalConfig = {
     },
     { name: 'email', type: 'email', required: true },
     { name: 'hours', type: 'text', defaultValue: 'Monday – Friday, 9:00 AM – 6:00 PM' },
-    { name: 'location', type: 'text', defaultValue: 'India' },
+    { name: 'location', type: 'text', defaultValue: 'Gujarat, India' },
+    { name: 'website', type: 'text', defaultValue: 'www.pupsharbour.com' },
+    { name: 'foundedYear', type: 'number', defaultValue: 2021, admin: { description: 'Shown as "Since 2021".' } },
     { name: 'linkedin', type: 'text', admin: { description: 'Full https:// URL of the LinkedIn page.' } },
   ],
 }

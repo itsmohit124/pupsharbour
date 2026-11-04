@@ -29,6 +29,7 @@ const EXPECTED: Record<Capability, [boolean, boolean, boolean, boolean, boolean]
   'enquiries.manage':               [Y, Y, N, N, N], // delete, export
   'applications.read':              [Y, Y, N, N, Y], // read, resume download, status
   'applications.manage':            [Y, Y, N, N, N], // delete, export
+  'hiring.read':                    [Y, Y, N, N, Y], // employer hiring requirements + JD files
   'users.manage':                   [Y, Y, N, N, N],
   'audit.read':                     [Y, Y, N, N, N],
   'self.edit':                      [Y, Y, Y, Y, Y],

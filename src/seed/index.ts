@@ -9,12 +9,32 @@ const CONTENT = ['pages', 'services', 'service-groups', 'industries'] as const
  * Loads the initial website content. Idempotent: refuses to run if pages exist, unless `reset` is
  * set, which deletes and recreates ONLY website content (never users, submissions or media).
  */
-export async function seed(payload: Payload, { reset = false } = {}): Promise<'seeded' | 'skipped'> {
+export async function seed(payload: Payload, { reset = false, force = false } = {}): Promise<'seeded' | 'skipped'> {
   const ctx = { system: true, skipAudit: true }
   const existing = await payload.count({ collection: 'pages', overrideAccess: true })
   if (existing.totalDocs > 0 && !reset) {
     payload.logger.info('[seed] Content already exists; skipping (run with SEED_RESET=1 to recreate website content).')
     return 'skipped'
+  }
+  if (reset && !force) {
+    // Staff edits are audited (the seed itself is not), so any entry means real work would be lost.
+    const edits = await payload.count({
+      collection: 'audit-logs',
+      where: {
+        and: [
+          { targetCollection: { in: [...CONTENT] } },
+          { action: { in: ['create', 'update', 'delete', 'publish', 'unpublish'] } },
+          { actor: { exists: true } },
+        ],
+      },
+      overrideAccess: true,
+    })
+    if (edits.totalDocs > 0) {
+      throw new Error(
+        `[seed] Refusing to reset: found ${edits.totalDocs} staff edits to website content in the audit log. ` +
+          'Review them first; to overwrite anyway run with SEED_FORCE=1.',
+      )
+    }
   }
   if (reset) {
     for (const collection of CONTENT) {

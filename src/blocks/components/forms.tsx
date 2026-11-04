@@ -2,10 +2,11 @@ import { Suspense } from 'react'
 
 import { ApplicationForm } from '@/components/forms/ApplicationForm'
 import { EnquiryForm } from '@/components/forms/EnquiryForm'
+import { HiringForm } from '@/components/forms/HiringForm'
 import { SectionHeading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
 import { whatsappHref, type SiteData } from '@/lib/data'
-import type { ApplicationFormBlock, EnquiryFormBlock } from '@/payload-types'
+import type { ApplicationFormBlock, EnquiryFormBlock, HiringFormBlock } from '@/payload-types'
 
 export function EnquiryFormSection({ block, ctx }: { block: EnquiryFormBlock; ctx: SiteData }) {
   return (
@@ -54,6 +55,25 @@ export function ApplicationFormSection({ block }: { block: ApplicationFormBlock 
               submitLabel={block.submitLabel || 'Submit Your Resume'}
               successMessage={block.successMessage || 'Thank you for applying.'}
               note={block.note}
+            />
+          </Suspense>
+        </div>
+      </div>
+    </Section>
+  )
+}
+
+export function HiringFormSection({ block, ctx }: { block: HiringFormBlock; ctx: SiteData }) {
+  return (
+    <Section settings={{ ...block.settings, anchorId: block.settings?.anchorId || 'hiring' }} defaultTheme="soft">
+      <div className="grid gap-10 lg:grid-cols-12">
+        <SectionHeading eyebrow={block.eyebrow} heading={block.heading} highlight={block.highlight} intro={block.intro} className="lg:col-span-4" />
+        <div className="lg:col-span-8">
+          <Suspense>
+            <HiringForm
+              submitLabel={block.submitLabel || 'Submit Hiring Requirement'}
+              successMessage={block.successMessage || 'Thank you. We will be in touch shortly.'}
+              industries={ctx.industries.map((i) => i.title)}
             />
           </Suspense>
         </div>

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { ArrowRight, Check, Clock, Mail, MapPin, Phone, Quote, Star } from 'lucide-react'
+import { ArrowRight, Check, Clock, Globe, Mail, MapPin, Phone, Quote, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -8,8 +8,9 @@ import { Button, CmsButton } from '@/components/ui/Button'
 import { SectionHeading } from '@/components/ui/Heading'
 import { Icon, IconTile, WhatsAppIcon } from '@/components/ui/Icon'
 import { isDark, Section } from '@/components/ui/Section'
-import { getInsights, whatsappHref, type SiteData } from '@/lib/data'
+import { getInsights, phoneFor, whatsappHref, type SiteData } from '@/lib/data'
 import type {
+  AudienceSplitBlock,
   ContactInfoBlock,
   CtaBlock,
   IndustriesBlock,
@@ -358,10 +359,13 @@ export function ContactInfo({ block, ctx }: { block: ContactInfoBlock; ctx: Site
   const s = ctx.settings
   const tel = (s.phone ?? '').replace(/[^\d+]/g, '')
   const rows = [
-    { icon: Phone, label: 'Phone', value: s.phone, href: `tel:${tel}` },
+    { icon: Phone, label: 'Phone / WhatsApp', value: s.phone, href: `tel:${tel}` },
+    { icon: Phone, label: 'Business enquiries', value: phoneFor(s, 'business')?.label, href: phoneFor(s, 'business')?.href },
+    { icon: Phone, label: 'Recruitment', value: phoneFor(s, 'recruitment')?.label, href: phoneFor(s, 'recruitment')?.href },
     { icon: Mail, label: 'Email', value: s.email, href: `mailto:${s.email}` },
     { icon: Clock, label: 'Working hours', value: s.hours },
     { icon: MapPin, label: 'Location', value: s.location },
+    { icon: Globe, label: 'Website', value: s.website, href: s.website ? `https://${s.website.replace(/^https?:\/\//, '')}` : undefined },
   ].filter((r) => r.value)
   return (
     <Section settings={block.settings} defaultTheme="soft">
@@ -396,6 +400,55 @@ export function ContactInfo({ block, ctx }: { block: ContactInfoBlock; ctx: Site
           {block.closing && <p className="mt-6 font-display text-lg font-semibold text-plum-900 italic">{block.closing}</p>}
         </div>
       </div>
+    </Section>
+  )
+}
+
+/** Two (or three) audience cards: "I'm an Employer" / "I'm a Job Seeker", with an optional phone line. */
+export function AudienceSplit({ block, ctx }: { block: AudienceSplitBlock; ctx: SiteData }) {
+  const dark = isDark(block.settings)
+  const cards = block.cards ?? []
+  return (
+    <Section settings={block.settings}>
+      <SectionHeading eyebrow={block.eyebrow} heading={block.heading} highlight={block.highlight} intro={block.intro} dark={dark} align="center" />
+      <ul className={clsx('mt-10 grid gap-6', cards.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2')}>
+        {cards.map((c, i) => {
+          const phone = phoneFor(ctx.settings, c.phone)
+          const featured = i === 0
+          return (
+            <li
+              key={c.id ?? c.title}
+              className={clsx(
+                'flex flex-col rounded-3xl p-8',
+                featured ? 'bg-plum-900 text-white shadow-2xl' : dark ? 'bg-white/5 ring-1 ring-white/10' : 'bg-white shadow-card ring-1 ring-plum-100',
+              )}
+            >
+              <IconTile name={c.icon} dark={featured || dark} />
+              {c.eyebrow && <p className={clsx('mt-5 text-xs font-semibold tracking-[0.18em] uppercase', featured ? 'text-gold-400' : 'text-plum-700')}>{c.eyebrow}</p>}
+              <h3 className={clsx('mt-2 font-display text-2xl font-semibold', featured ? 'text-white' : 'text-plum-900')}>{c.title}</h3>
+              {c.text && <p className={clsx('mt-3 leading-relaxed', featured ? 'text-white/80' : 'text-muted')}>{c.text}</p>}
+              {!!c.bullets?.length && (
+                <ul className="mt-4 space-y-2 text-sm">
+                  {c.bullets.map((b) => (
+                    <li key={b.id ?? b.text} className="flex gap-2">
+                      <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-gold-500" />
+                      {b.text}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="mt-auto flex flex-wrap items-center gap-4 pt-6">
+                <CmsButton link={c.cta} variant={featured ? 'gold' : 'plum'} arrow />
+                {phone && (
+                  <a href={phone.href} className={clsx('inline-flex items-center gap-2 text-sm font-semibold', featured ? 'text-white hover:text-gold-400' : 'text-plum-800 hover:text-plum-600')}>
+                    <Phone aria-hidden className="size-4" /> {phone.label}
+                  </a>
+                )}
+              </div>
+            </li>
+          )
+        })}
+      </ul>
     </Section>
   )
 }

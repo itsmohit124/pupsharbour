@@ -9,10 +9,11 @@ and Tailwind CSS 4.
 ```bash
 npm install
 cp .env.example .env                  # then set PAYLOAD_SECRET (openssl rand -hex 32)
-# first run only: create the first super admin from env (min 14-char password)
+npm run migrate                       # create/upgrade the database schema
+# first run only: create the first super admin from env (min 14-char password) + load all content
 BOOTSTRAP_ADMIN_EMAIL=you@example.com BOOTSTRAP_ADMIN_PASSWORD='a-long-password' \
-BOOTSTRAP_ADMIN_NAME='Your Name' npm run dev
-npm run seed                          # load all site content (only if the site is empty)
+BOOTSTRAP_ADMIN_NAME='Your Name' npm run seed
+npm run dev
 ```
 
 Open http://localhost:3000 (site) and http://localhost:3000/admin (admin).
@@ -20,14 +21,17 @@ Open http://localhost:3000 (site) and http://localhost:3000/admin (admin).
 | Command | What it does |
 |---|---|
 | `npm run dev` | Development server |
+| `npm run migrate` | Apply database migrations (run after every pull / before every deploy) |
+| `npm run migrate:create -- <name>` | After changing collections/blocks: generate a migration and commit it |
 | `npm run seed` | Load the initial content from `src/seed/` (skips if pages exist) |
-| `SEED_RESET=1 npm run seed` | Recreate **website content only** (users, submissions, media untouched) |
+| `SEED_RESET=1 npm run seed` | Recreate **website content only** (users, submissions, media untouched). Refuses if staff have edited content (audit log); `SEED_FORCE=1` overrides |
+| `node scripts/capture-admin-images.mjs` | Re-capture the section previews and help screenshots from the running site (`ADMIN_EMAIL`/`ADMIN_PASSWORD` for admin shots) |
 | `npm run check` | Lint + typecheck + unit + integration tests |
-| `npx playwright test` | Browser smoke tests against a running, seeded site |
+| `npx playwright test` | Browser tests against a running, seeded site (`E2E_ADMIN_EMAIL`/`E2E_ADMIN_PASSWORD` enable the admin tests) |
 
 ## Pages
-Home · About · Services (+ a detail page per service) · Approach · Industries · Insights (+ articles)
-· Careers (resume form) · Contact (business enquiry form) · Privacy · Terms · Disclaimer.
+Home · About · Services (+ a detail page per service) · Approach · For Employers (hiring-requirement form)
+· Industries · Insights (+ articles) · Careers (resume form) · Contact (business enquiry form) · Privacy · Terms · Disclaimer.
 
 ## What staff can do in `/admin`
 - **Pages:** every page is a stack of sections (hero, stats, pillars, feature grid, process, packages,
@@ -42,6 +46,11 @@ Home · About · Services (+ a detail page per service) · Approach · Industrie
 - **Staff users & Audit log:** roles and permissions are listed in [docs/permissions.md](docs/permissions.md).
 
 Editors cannot inject HTML or CSS. Every section has a fixed design, so the site stays consistent.
+
+**Built-in guidance:** every section row shows its type and live headline; inside each section an
+"About this section" panel shows a picture of it on the site and where each field appears; Live
+Preview shows the page side by side (mobile/tablet/desktop) while typing. A guided tour runs on first
+sign-in, and **Help & guides** (`/admin/help`) has step-by-step guides filtered to your role.
 
 ## Docs
 - [docs/content/source.md](docs/content/source.md): original copy (from the planning chats + design references)

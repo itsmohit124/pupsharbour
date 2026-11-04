@@ -811,3 +811,496 @@ LinkedIn: Pups Harbour Consultancy
 © 2026 Pups Harbour Consultancy. All Rights Reserved.
 
 Privacy Policy | Terms & Conditions | Disclaimer
+
+
+---
+---
+
+# APPENDIX: v1 COPY (first chat), merged into the site on 2026-11-04
+
+How v1 was merged (client decisions):
+- Contact numbers: main/WhatsApp +91 62064 54663, business +91 99985 29394, recruitment +91 97248 75844; location Gujarat, India.
+- v1-only services (HR Management & Operations, Payroll & Statutory Compliance, PMS & HR Analytics, Contract Labour
+  Management, Business Consulting & Advisory) are merged as bullets into the matching of the 13 services; Business
+  Consulting & Advisory focus areas sit under the Business Strategy pillar.
+- "For Employers" became its own page (/employers) with a hiring-requirement form.
+- v1 Why Apply, Business/Candidate enquiry paths, Since 2021, values and philosophy are on Careers, Contact, Home and About.
+
+# PUPS HARBOUR CONSULTANCY
+### Guiding People. Building Futures.
+
+---
+
+# PAGE 1 – HOME
+
+## Hero Section
+
+**Your People. Your Growth. Our Commitment.**
+
+Building stronger businesses through the right talent, smarter HR solutions and strategic business consulting.
+
+At Pups Harbour Consultancy, we partner with organisations to simplify workforce management, strengthen human resource functions and create sustainable business growth.
+
+From finding the right professionals to building effective HR systems, we help businesses move forward with confidence.
+
+**CTA Buttons:**
+- Find the Right Talent
+- Explore Our Services
+- Submit Your Resume
+
+## Who We Are
+
+**Your Trusted Partner in HR & Business Growth**
+
+Pups Harbour Consultancy is an HR and Business Consulting firm committed to helping organisations build efficient teams and stronger business operations.
+
+Since 2021, we have been supporting businesses with recruitment, staffing, HR operations, payroll management, statutory compliance and organisational development.
+
+We believe that successful businesses are built on the foundation of the right people, effective processes and strategic decisions.
+
+## Our Core Services
+
+**1. Recruitment & Talent Acquisition**
+
+Connecting businesses with qualified professionals across IT, non-IT, engineering, manufacturing, sales, finance, HR and other business functions.
+
+**2. HR Management & Operations**
+
+Helping organisations establish structured HR processes, employee management systems and efficient workforce operations.
+
+**3. Payroll & Statutory Compliance**
+
+Supporting payroll administration, employee records and applicable statutory compliance requirements.
+
+**4. Performance Management & HR Analytics**
+
+Helping businesses improve employee performance through structured PMS frameworks, HR reporting and workforce insights.
+
+**5. Contract Labour Management**
+
+Supporting contract workforce coordination, documentation and applicable compliance processes.
+
+**6. Business Consulting & Advisory**
+
+Providing practical business guidance to improve operational efficiency, organisational structure and business performance.
+
+## Why Choose Pups Harbour?
+
+- Industry-focused recruitment expertise.
+- Access to diverse talent pools.
+- Personalised HR solutions.
+- Business-oriented approach.
+- Dedicated client coordination.
+- Focus on long-term professional relationships.
+
+## Our Approach
+
+**Understand. Strategise. Execute. Grow.**
+
+We understand your requirements, develop a suitable approach, execute the solution and continuously work towards better outcomes.
+
+## Final CTA
+
+**Let's Build Something Stronger Together.**
+
+Whether you are looking to hire talented professionals or strengthen your HR operations, Pups Harbour is ready to support your journey.
+
+[Contact Our Team] [Share Your Requirement]
+
+---
+
+# PAGE 2 – ABOUT US
+
+## About Pups Harbour Consultancy
+
+**Guiding People. Building Futures.**
+
+At Pups Harbour Consultancy, we believe that people are the most valuable asset of any organisation.
+
+Established in 2021, Pups Harbour Consultancy was built with a vision to help businesses overcome people-management challenges, streamline HR operations and achieve sustainable growth.
+
+We work closely with organisations to understand their business requirements and deliver practical, customised solutions across recruitment, staffing, HR management and business consulting.
+
+Our approach combines industry understanding, professional coordination and a commitment to building long-term relationships.
+
+## Our Vision
+
+To become a trusted HR and Business Consulting partner for organisations by creating meaningful workforce solutions and contributing to sustainable business growth.
+
+## Our Mission
+
+- Connect organisations with the right talent.
+- Simplify HR processes and workforce management.
+- Support businesses in maintaining applicable statutory compliance.
+- Improve organisational effectiveness and employee performance.
+- Build lasting partnerships through reliable professional services.
+
+## Our Core Values
+
+**Integrity**
+
+We believe in transparent communication and ethical business practices.
+
+**Commitment**
+
+We remain dedicated to understanding and fulfilling our clients' requirements.
+
+**Professionalism**
+
+We maintain professional standards throughout our interactions and service delivery.
+
+**Customer Focus**
+
+Every organisation has unique requirements. We focus on solutions that address individual business needs.
+
+**Continuous Improvement**
+
+We believe in learning, adapting and continuously improving our services.
+
+## Our Philosophy
+
+**Right People. Right Processes. Better Performance.**
+
+We believe that business success is not achieved through recruitment alone. It requires the right people, structured processes, effective management and a clear growth strategy.
+
+At Pups Harbour, we bring these elements together to help businesses build stronger organisations.
+
+---
+
+# PAGE 3 – OUR SERVICES
+
+## Comprehensive HR & Business Consulting Solutions
+
+**Everything Your Business Needs to Build a Stronger Workforce.**
+
+We offer integrated HR, recruitment and business consulting solutions designed to support organisations at different stages of growth.
+
+## 1. Recruitment & Talent Acquisition
+
+Finding the right talent is essential for organisational success.
+
+Our recruitment solutions help businesses identify, evaluate and hire suitable professionals across multiple industries and functions.
+
+Our recruitment capabilities include:
+
+- Permanent Staffing.
+- Executive Search.
+- IT & Non-IT Recruitment.
+- Bulk & Volume Hiring.
+- Engineering & Technical Recruitment.
+- Manufacturing & Industrial Recruitment.
+- Sales & Marketing Recruitment.
+- Finance & Accounts Recruitment.
+- HR & Administration Recruitment.
+- Mid-Level and Senior-Level Hiring.
+
+**Our Objective:** Connect the right people with the right opportunities.
+
+## 2. HR Management & Operations
+
+We help organisations establish and manage structured HR functions.
+
+Our services include:
+
+- HR Process Development.
+- Employee Lifecycle Management.
+- Joining & Onboarding Processes.
+- Employee Documentation.
+- HR Policies & Procedures.
+- Attendance & Leave Management.
+- Employee Engagement Support.
+- HR Administration.
+
+**Our Objective:** Build organised, efficient and people-focused workplaces.
+
+## 3. Payroll Management & Statutory Compliance
+
+Accurate payroll and applicable statutory compliance are important for smooth business operations.
+
+Our support areas include:
+
+- Payroll Processing Support.
+- Salary Structure Management.
+- Payroll Documentation.
+- PF & ESIC Administration Support.
+- Professional Tax Compliance Support.
+- Labour Law Compliance Coordination.
+- Statutory Records & Documentation.
+- Compliance Calendar & Reporting.
+
+All services are subject to the applicable laws, scope of engagement and professional requirements.
+
+**Our Objective:** Support accurate payroll administration and responsible compliance management.
+
+## 4. Performance Management System (PMS) & HR Analytics
+
+We help organisations establish performance-focused HR practices.
+
+Our services include:
+
+- KPI & KRA Development.
+- Performance Appraisal Frameworks.
+- Employee Performance Evaluation.
+- Goal Setting & Tracking.
+- HR MIS Reporting.
+- Workforce Analytics.
+- Employee Productivity Monitoring.
+- Performance Review Processes.
+
+**Our Objective:** Build a performance-driven organisational culture.
+
+## 5. Contract Labour Management
+
+We support organisations in managing contract workforce requirements and related processes.
+
+Our services include:
+
+- Contract Workforce Coordination.
+- Contractor Documentation.
+- Labour Records Management.
+- Attendance & Wage Documentation.
+- Contract Labour Compliance Support.
+- Workforce Coordination & Reporting.
+
+**Our Objective:** Improve workforce coordination and support applicable compliance requirements.
+
+## 6. Business Consulting & Advisory
+
+We help businesses identify operational challenges and develop practical improvement strategies.
+
+Our focus areas include:
+
+- Organisational Structuring.
+- Business Process Improvement.
+- Management Advisory.
+- Operational Efficiency.
+- Business Growth Strategies.
+- Workforce Planning.
+- Business Development Support.
+
+**Our Objective:** Help businesses create stronger foundations for sustainable growth.
+
+## CTA
+
+**Looking for the Right Solution for Your Business?**
+
+Let's understand your requirements and develop a solution that works for your organisation.
+
+[Discuss Your Requirements]
+
+---
+
+# PAGE 4 – FOR EMPLOYERS
+
+## Build Your Team. Strengthen Your Business.
+
+**Your Hiring & HR Partner for Sustainable Growth.**
+
+Finding the right talent and managing people effectively can be challenging for growing organisations.
+
+Pups Harbour Consultancy works with employers to simplify recruitment, strengthen HR functions and support workforce management.
+
+Whether you are a startup, MSME or established organisation, we help you access professional HR and recruitment support.
+
+## Recruitment Solutions for Every Business Need
+
+We support hiring requirements across:
+
+- Engineering & Manufacturing.
+- Pharmaceuticals & Healthcare.
+- FMCG & Consumer Products.
+- Information Technology.
+- Infrastructure & Construction.
+- Sales & Distribution.
+- Finance & Accounts.
+- Human Resources.
+- Administration & Operations.
+
+## Our Recruitment Process
+
+**Step 1 – Understand Your Requirement**
+
+We understand your job description, experience expectations, qualifications, salary budget and organisational requirements.
+
+**Step 2 – Talent Sourcing**
+
+We identify potential candidates through relevant sourcing channels and professional networks.
+
+**Step 3 – Screening & Shortlisting**
+
+We evaluate candidate profiles against the agreed job requirements.
+
+**Step 4 – Interview Coordination**
+
+We coordinate interview schedules and facilitate communication between employers and candidates.
+
+**Step 5 – Selection & Offer Coordination**
+
+We support the selection process and coordinate offer-related communication.
+
+**Step 6 – Joining & Follow-Up**
+
+We coordinate joining formalities and follow up on the placement as agreed.
+
+## Why Partner With Us?
+
+- Dedicated recruitment coordination.
+- Multiple industry hiring capabilities.
+- Focus on relevant candidate profiles.
+- Flexible hiring support.
+- Transparent communication.
+- Relationship-driven approach.
+
+## Employer Enquiry
+
+**Let Us Help You Find the Right Talent.**
+
+Share your hiring requirements with us, and our team will connect with you to understand your needs.
+
+Suggested enquiry form:
+
+- Company Name
+- Contact Person
+- Designation
+- Email Address
+- Mobile Number
+- Industry
+- Position / Job Title
+- Number of Vacancies
+- Location
+- Experience Required
+- Expected Hiring Timeline
+- Upload Job Description
+
+**CTA: Submit Hiring Requirement**
+
+---
+
+# PAGE 5 – CAREERS & CONTACT
+
+## Section A – Careers
+
+### Your Next Career Opportunity Starts Here.
+
+At Pups Harbour Consultancy, we connect talented professionals with organisations looking for the right people.
+
+Whether you are an experienced professional or looking for your next career move, we help you explore opportunities aligned with your qualifications, skills and professional aspirations.
+
+### Explore Opportunities Across Industries
+
+- Engineering & Manufacturing.
+- IT & Software.
+- Sales & Marketing.
+- Finance & Accounts.
+- Human Resources.
+- Administration.
+- Supply Chain & Logistics.
+- Operations & Project Management.
+- Healthcare & Pharmaceuticals.
+
+### Why Apply Through Pups Harbour?
+
+- Access to diverse job opportunities.
+- Opportunities across multiple industries.
+- Professional recruitment coordination.
+- Interview scheduling assistance.
+- Career opportunity updates.
+
+### Submit Your Resume
+
+**Take the Next Step in Your Career.**
+
+Share your updated resume with us and let our recruitment team explore suitable opportunities.
+
+Suggested candidate application form:
+
+- Full Name
+- Mobile Number
+- Email Address
+- Current Location
+- Highest Qualification
+- Total Experience
+- Current Designation
+- Preferred Job Location
+- Expected Salary
+- Notice Period
+- Upload Resume
+
+**CTA: Submit Your Resume**
+
+*Note: Registration does not guarantee employment or an interview. Opportunities are subject to client requirements and candidate suitability.*
+
+---
+
+## Section B – Contact Us
+
+### Let's Start a Conversation.
+
+Whether you are an employer looking for reliable recruitment and HR support or a professional searching for new career opportunities, we would be happy to hear from you.
+
+**PUPS HARBOUR CONSULTANCY**
+
+Guiding People. Building Futures.
+
+**Contact Information**
+
+Phone / WhatsApp: +91 99985 29394
+
+Additional Recruitment Contact: +91 97248 75844
+
+Email: pups.harbour@gmail.com
+
+Website: www.pupsharbour.com
+
+Location: Gujarat, India
+
+### Business Enquiries
+
+For recruitment partnerships, HR consulting, payroll support and business consulting requirements, connect with our team.
+
+### Candidate Enquiries
+
+For job opportunities and resume submissions, contact our recruitment team.
+
+**Let's Build Better Workplaces and Brighter Careers Together.**
+
+---
+
+## FOOTER – ALL WEBSITE PAGES
+
+**PUPS HARBOUR CONSULTANCY**
+
+Guiding People. Building Futures.
+
+Your trusted partner for Recruitment, Staffing, HR Management and Business Consulting.
+
+**Quick Links**
+
+- Home
+- About Us
+- Our Services
+- For Employers
+- Careers & Contact
+
+**Our Services**
+
+- Recruitment & Staffing
+- HR Management
+- Payroll & Compliance
+- PMS & HR Analytics
+- Contract Labour Management
+- Business Consulting
+
+**Connect With Us**
+
+Email: pups.harbour@gmail.com
+
+Phone: +91 99985 29394
+
+Website: www.pupsharbour.com
+
+LinkedIn: Pups Harbour Consultancy
+
+© 2026 Pups Harbour Consultancy. All Rights Reserved.
+
+*Privacy Policy | Terms & Conditions | Disclaimer*

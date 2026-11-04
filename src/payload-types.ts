@@ -75,6 +75,7 @@ export interface Config {
     testimonials: Testimonial;
     media: Media;
     enquiries: Enquiry;
+    'job-descriptions': JobDescription;
     applications: Application;
     resumes: Resume;
     users: User;
@@ -98,6 +99,7 @@ export interface Config {
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     enquiries: EnquiriesSelect<false> | EnquiriesSelect<true>;
+    'job-descriptions': JobDescriptionsSelect<false> | JobDescriptionsSelect<true>;
     applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
     resumes: ResumesSelect<false> | ResumesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -182,12 +184,20 @@ export interface Page {
         | InsightsListBlock
         | CtaBlock
         | EnquiryFormBlock
+        | HiringFormBlock
         | ApplicationFormBlock
         | ContactInfoBlock
+        | AudienceSplitBlock
       )[]
     | null;
   meta?: {
+    /**
+     * Shown in Google results and the browser tab. Aim for 50–65 characters.
+     */
     title?: string | null;
+    /**
+     * Shown under the title in Google results. Aim for 120–160 characters.
+     */
     description?: string | null;
     image?: (number | null) | Media;
   };
@@ -201,14 +211,20 @@ export interface Page {
  */
 export interface HeroBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   body?: string | null;
   primaryCta?: {
@@ -420,14 +436,20 @@ export interface Media {
  */
 export interface PageHeaderBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   /**
    * Shown above the title, e.g. "About Us".
@@ -542,14 +564,20 @@ export interface StatsBlock {
  */
 export interface RichContentBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   paragraphs?:
     | {
@@ -592,14 +620,20 @@ export interface RichContentBlock {
  */
 export interface PillarsBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   items?:
     | {
@@ -660,6 +694,12 @@ export interface PillarsBlock {
           | null;
         title: string;
         description?: string | null;
+        bullets?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -687,14 +727,20 @@ export interface PillarsBlock {
  */
 export interface FeaturesBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   items?:
     | {
@@ -784,14 +830,20 @@ export interface FeaturesBlock {
  */
 export interface ServiceEcosystemBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   centerLabel?: string | null;
   /**
@@ -826,14 +878,20 @@ export interface ServiceEcosystemBlock {
  */
 export interface ServicesDetailBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading?: string | null;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   /**
    * Visibility, anchor and background for this section.
@@ -859,14 +917,20 @@ export interface ServicesDetailBlock {
  */
 export interface ProcessBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   steps?:
     | {
@@ -938,6 +1002,10 @@ export interface ProcessBlock {
       }[]
     | null;
   showActivities?: boolean | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
   /**
    * Visibility, anchor and background for this section.
    */
@@ -962,14 +1030,20 @@ export interface ProcessBlock {
  */
 export interface PackagesBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   tiers?:
     | {
@@ -1019,14 +1093,20 @@ export interface PackagesBlock {
  */
 export interface ListBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   items?:
     | {
@@ -1146,14 +1226,20 @@ export interface VisionMissionBlock {
  */
 export interface IndustriesBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   variant?: ('strip' | 'detailed') | null;
   cta?: {
@@ -1184,14 +1270,20 @@ export interface IndustriesBlock {
  */
 export interface LiveDemoBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   modules?:
     | {
@@ -1282,14 +1374,20 @@ export interface LiveDemoBlock {
  */
 export interface TestimonialsBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   /**
    * This section hides itself while no testimonials are published.
@@ -1319,14 +1417,20 @@ export interface TestimonialsBlock {
  */
 export interface InsightsListBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   limit?: number | null;
   /**
@@ -1353,14 +1457,20 @@ export interface InsightsListBlock {
  */
 export interface CtaBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   primaryCta?: {
     label?: string | null;
@@ -1395,14 +1505,20 @@ export interface CtaBlock {
  */
 export interface EnquiryFormBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   submitLabel?: string | null;
   successMessage?: string | null;
@@ -1426,18 +1542,65 @@ export interface EnquiryFormBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HiringFormBlock".
+ */
+export interface HiringFormBlock {
+  /**
+   * Small uppercase label shown above the headline.
+   */
+  eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
+  heading: string;
+  /**
+   * Words shown in gold italics right after the headline (optional).
+   */
+  highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
+  intro?: string | null;
+  submitLabel?: string | null;
+  successMessage?: string | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hiringForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ApplicationFormBlock".
  */
 export interface ApplicationFormBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   submitLabel?: string | null;
   note?: string | null;
@@ -1466,14 +1629,20 @@ export interface ApplicationFormBlock {
  */
 export interface ContactInfoBlock {
   /**
-   * Small label above the heading.
+   * Small uppercase label shown above the headline.
    */
   eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
   heading: string;
   /**
-   * Words at the end of the heading shown in gold (optional).
+   * Words shown in gold italics right after the headline (optional).
    */
   highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
   intro?: string | null;
   closing?: string | null;
   /**
@@ -1493,6 +1662,122 @@ export interface ContactInfoBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'contactInfo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AudienceSplitBlock".
+ */
+export interface AudienceSplitBlock {
+  /**
+   * Small uppercase label shown above the headline.
+   */
+  eyebrow?: string | null;
+  /**
+   * Main headline of this section.
+   */
+  heading?: string | null;
+  /**
+   * Words shown in gold italics right after the headline (optional).
+   */
+  highlight?: string | null;
+  /**
+   * Paragraph directly under the headline.
+   */
+  intro?: string | null;
+  cards?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        eyebrow?: string | null;
+        title: string;
+        text?: string | null;
+        bullets?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Show one of the phone numbers from Site settings on this card.
+         */
+        phone?: ('none' | 'main' | 'business' | 'recruitment') | null;
+        cta?: {
+          label?: string | null;
+          href?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Visibility, anchor and background for this section.
+   */
+  settings?: {
+    /**
+     * Hide without deleting.
+     */
+    hidden?: boolean | null;
+    /**
+     * Optional #anchor for links (letters, numbers, dashes).
+     */
+    anchorId?: string | null;
+    theme?: ('light' | 'soft' | 'dark') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'audienceSplit';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1792,12 +2077,15 @@ export interface Testimonial {
   createdAt: string;
 }
 /**
+ * Business enquiries (Contact page) and hiring requirements (For Employers page). Filter by Type.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "enquiries".
  */
 export interface Enquiry {
   id: number;
   status?: ('new' | 'contacted' | 'qualified' | 'won' | 'lost') | null;
+  type: 'business' | 'hiring';
   companyName: string;
   contactPerson: string;
   designation?: string | null;
@@ -1806,7 +2094,13 @@ export interface Enquiry {
   industry?: string | null;
   organisationSize?: string | null;
   services?: (number | Service)[] | null;
-  message: string;
+  message?: string | null;
+  position?: string | null;
+  vacancies?: number | null;
+  location?: string | null;
+  experience?: string | null;
+  timeline?: string | null;
+  jobDescription?: (number | null) | JobDescription;
   /**
    * Internal notes (never shown publicly).
    */
@@ -1815,6 +2109,26 @@ export interface Enquiry {
   sourcePage?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Private files. Only staff who can see hiring requirements can download them.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "job-descriptions".
+ */
+export interface JobDescription {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1991,6 +2305,10 @@ export interface PayloadLockedDocument {
         value: number | Enquiry;
       } | null)
     | ({
+        relationTo: 'job-descriptions';
+        value: number | JobDescription;
+      } | null)
+    | ({
         relationTo: 'applications';
         value: number | Application;
       } | null)
@@ -2076,8 +2394,10 @@ export interface PagesSelect<T extends boolean = true> {
         insightsList?: T | InsightsListBlockSelect<T>;
         cta?: T | CtaBlockSelect<T>;
         enquiryForm?: T | EnquiryFormBlockSelect<T>;
+        hiringForm?: T | HiringFormBlockSelect<T>;
         applicationForm?: T | ApplicationFormBlockSelect<T>;
         contactInfo?: T | ContactInfoBlockSelect<T>;
+        audienceSplit?: T | AudienceSplitBlockSelect<T>;
       };
   meta?:
     | T
@@ -2228,6 +2548,12 @@ export interface PillarsBlockSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         description?: T;
+        bullets?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
         id?: T;
       };
   settings?:
@@ -2340,6 +2666,12 @@ export interface ProcessBlockSelect<T extends boolean = true> {
         id?: T;
       };
   showActivities?: T;
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
   settings?:
     | T
     | {
@@ -2596,6 +2928,27 @@ export interface EnquiryFormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HiringFormBlock_select".
+ */
+export interface HiringFormBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  submitLabel?: T;
+  successMessage?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ApplicationFormBlock_select".
  */
 export interface ApplicationFormBlockSelect<T extends boolean = true> {
@@ -2626,6 +2979,47 @@ export interface ContactInfoBlockSelect<T extends boolean = true> {
   highlight?: T;
   intro?: T;
   closing?: T;
+  settings?:
+    | T
+    | {
+        hidden?: T;
+        anchorId?: T;
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AudienceSplitBlock_select".
+ */
+export interface AudienceSplitBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  highlight?: T;
+  intro?: T;
+  cards?:
+    | T
+    | {
+        icon?: T;
+        eyebrow?: T;
+        title?: T;
+        text?: T;
+        bullets?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        phone?: T;
+        cta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        id?: T;
+      };
   settings?:
     | T
     | {
@@ -2779,6 +3173,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface EnquiriesSelect<T extends boolean = true> {
   status?: T;
+  type?: T;
   companyName?: T;
   contactPerson?: T;
   designation?: T;
@@ -2788,11 +3183,34 @@ export interface EnquiriesSelect<T extends boolean = true> {
   organisationSize?: T;
   services?: T;
   message?: T;
+  position?: T;
+  vacancies?: T;
+  location?: T;
+  experience?: T;
+  timeline?: T;
+  jobDescription?: T;
   notes?: T;
   consent?: T;
   sourcePage?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "job-descriptions_select".
+ */
+export interface JobDescriptionsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2931,12 +3349,31 @@ export interface SiteSetting {
   tagline?: string | null;
   strapline?: string | null;
   pillarsLine?: string | null;
+  /**
+   * Shown in the header area, footer and contact page.
+   */
   phone: string;
+  /**
+   * Used by every WhatsApp button on the site.
+   */
   whatsapp: string;
+  /**
+   * For employers and business clients (Contact page, For Employers).
+   */
+  businessPhone?: string | null;
+  /**
+   * For job seekers (Careers and Contact pages).
+   */
+  recruitmentPhone?: string | null;
   whatsappMessage?: string | null;
   email: string;
   hours?: string | null;
   location?: string | null;
+  website?: string | null;
+  /**
+   * Shown as "Since 2021".
+   */
+  foundedYear?: number | null;
   /**
    * Full https:// URL of the LinkedIn page.
    */
@@ -3010,10 +3447,14 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   pillarsLine?: T;
   phone?: T;
   whatsapp?: T;
+  businessPhone?: T;
+  recruitmentPhone?: T;
   whatsappMessage?: T;
   email?: T;
   hours?: T;
   location?: T;
+  website?: T;
+  foundedYear?: T;
   linkedin?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -1,13 +1,13 @@
-/** Resume uploads: check real file content (magic bytes), not just the name or browser-sent type. */
-export const MAX_RESUME_BYTES = 5 * 1024 * 1024
+/** Document uploads (resumes, job descriptions): check real file content (magic bytes), not just the name or browser-sent type. */
+export const MAX_DOCUMENT_BYTES = 5 * 1024 * 1024
 
 type Sniff = { ok: true; mimetype: string; ext: 'pdf' | 'doc' | 'docx' } | { ok: false; reason: string }
 
 const startsWith = (b: Uint8Array, sig: number[]) => sig.every((v, i) => b[i] === v)
 
-export function sniffResume(bytes: Uint8Array, filename: string): Sniff {
+export function sniffDocument(bytes: Uint8Array, filename: string): Sniff {
   if (!bytes.length) return { ok: false, reason: 'The file is empty.' }
-  if (bytes.length > MAX_RESUME_BYTES) return { ok: false, reason: 'The file is larger than 5 MB.' }
+  if (bytes.length > MAX_DOCUMENT_BYTES) return { ok: false, reason: 'The file is larger than 5 MB.' }
   const ext = filename.toLowerCase().split('.').pop()
 
   let detected: Exclude<Sniff, { ok: false }> | null = null
