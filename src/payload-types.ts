@@ -635,6 +635,10 @@ export interface PillarsBlock {
    * Paragraph directly under the headline.
    */
   intro?: string | null;
+  /**
+   * Short bold line between the headline and the intro paragraph (optional).
+   */
+  tagline?: string | null;
   items?:
     | {
         /**
@@ -693,13 +697,25 @@ export interface PillarsBlock {
             )
           | null;
         title: string;
+        /**
+         * Short gold line under the pillar title (optional).
+         */
+        tagline?: string | null;
         description?: string | null;
+        /**
+         * Lead-in line above the bullets, e.g. "You can expect:" (optional).
+         */
+        bulletsIntro?: string | null;
         bullets?:
           | {
               text: string;
               id?: string | null;
             }[]
           | null;
+        /**
+         * Italic closing line at the bottom of the card (optional).
+         */
+        closing?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -2542,18 +2558,22 @@ export interface PillarsBlockSelect<T extends boolean = true> {
   heading?: T;
   highlight?: T;
   intro?: T;
+  tagline?: T;
   items?:
     | T
     | {
         icon?: T;
         title?: T;
+        tagline?: T;
         description?: T;
+        bulletsIntro?: T;
         bullets?:
           | T
           | {
               text?: T;
               id?: T;
             };
+        closing?: T;
         id?: T;
       };
   settings?:

@@ -188,19 +188,31 @@ export const RichContent = block('richContent', 'Text', [
 export const Pillars = block('pillars', 'Pillars', [
   ...heading(),
   {
+    name: 'tagline',
+    type: 'text',
+    admin: { description: 'Short bold line between the headline and the intro paragraph (optional).' },
+  },
+  {
     name: 'items',
     label: 'Pillars',
     type: 'array',
     admin: { initCollapsed: true },
     fields: [
       { type: 'row', fields: [iconField(), { name: 'title', type: 'text', required: true }] },
+      { name: 'tagline', type: 'text', admin: { description: 'Short gold line under the pillar title (optional).' } },
       { name: 'description', type: 'textarea' },
+      {
+        name: 'bulletsIntro',
+        type: 'text',
+        admin: { description: 'Lead-in line above the bullets, e.g. "You can expect:" (optional).' },
+      },
       {
         name: 'bullets',
         label: 'Focus areas (optional)',
         type: 'array',
         fields: [{ name: 'text', type: 'text', required: true }],
       },
+      { name: 'closing', type: 'text', admin: { description: 'Italic closing line at the bottom of the card (optional).' } },
     ],
   },
 ])

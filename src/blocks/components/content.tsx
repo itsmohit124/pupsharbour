@@ -59,13 +59,21 @@ export function Pillars({ block }: { block: PillarsBlock }) {
   const dark = isDark(block.settings)
   return (
     <Section settings={block.settings}>
-      <SectionHeading eyebrow={block.eyebrow} heading={block.heading} highlight={block.highlight} intro={block.intro} dark={dark} align="center" />
-      <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <SectionHeading
+        eyebrow={block.eyebrow}
+        heading={block.heading}
+        highlight={block.highlight}
+        tagline={block.tagline}
+        intro={block.intro}
+        dark={dark}
+        align="center"
+      />
+      <ol className="mt-12 grid gap-6 md:grid-cols-2">
         {(block.items ?? []).map((p, i) => (
           <li
             key={p.id ?? p.title}
             className={clsx(
-              'relative rounded-2xl p-6 transition hover:-translate-y-1',
+              'relative flex flex-col rounded-2xl p-6 transition hover:-translate-y-1 sm:p-8',
               dark ? 'bg-white/5 ring-1 ring-white/10' : 'bg-white shadow-card ring-1 ring-plum-100',
             )}
           >
@@ -73,10 +81,16 @@ export function Pillars({ block }: { block: PillarsBlock }) {
               {String(i + 1).padStart(2, '0')}
             </span>
             <IconTile name={p.icon} dark={dark} />
-            <h3 className={clsx('mt-5 text-lg font-semibold', dark ? 'text-white' : 'text-plum-900')}>{p.title}</h3>
-            {p.description && <p className={clsx('mt-2 text-sm leading-relaxed', dark ? 'text-white/75' : 'text-muted')}>{p.description}</p>}
+            <h3 className={clsx('mt-5 text-xl font-semibold', dark ? 'text-white' : 'text-plum-900')}>{p.title}</h3>
+            {p.tagline && (
+              <p className={clsx('mt-1 text-sm font-semibold', dark ? 'text-gold-400' : 'text-gold-600')}>{p.tagline}</p>
+            )}
+            {p.description && <p className={clsx('mt-3 text-sm leading-relaxed', dark ? 'text-white/75' : 'text-muted')}>{p.description}</p>}
+            {p.bulletsIntro && (
+              <p className={clsx('mt-4 text-sm font-semibold', dark ? 'text-white' : 'text-plum-900')}>{p.bulletsIntro}</p>
+            )}
             {!!p.bullets?.length && (
-              <ul className="mt-4 space-y-1.5 text-sm">
+              <ul className={clsx('space-y-1.5 text-sm', p.bulletsIntro ? 'mt-2' : 'mt-4')}>
                 {p.bullets.map((b) => (
                   <li key={b.id ?? b.text} className={clsx('flex gap-2', dark ? 'text-white/85' : 'text-ink')}>
                     <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-gold-500" />
@@ -84,6 +98,18 @@ export function Pillars({ block }: { block: PillarsBlock }) {
                   </li>
                 ))}
               </ul>
+            )}
+            {p.closing && (
+              <div className="mt-auto pt-6">
+                <p
+                  className={clsx(
+                    'border-t pt-4 font-display text-base font-semibold italic',
+                    dark ? 'border-white/10 text-gold-400' : 'border-plum-100 text-plum-800',
+                  )}
+                >
+                  {p.closing}
+                </p>
+              </div>
             )}
           </li>
         ))}
