@@ -9,6 +9,7 @@ import type { Access, CollectionAfterChangeHook, CollectionConfig, Field } from 
 import { allow, nobody } from '@/access'
 import { can, type Principal } from '@/access/permissions'
 import { auditHooks } from '@/audit/writeAudit'
+import { localDir } from '@/storage'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -190,7 +191,7 @@ export const Resumes: CollectionConfig = {
   },
   upload: {
     // Outside /public and served only through Payload's access-checked file route.
-    staticDir: path.resolve(dirname, '../../data/resumes'),
+    staticDir: localDir(dirname, '../../data/resumes'),
     mimeTypes: [
       'application/pdf',
       'application/msword',
@@ -216,7 +217,7 @@ export const JobDescriptions: CollectionConfig = {
     delete: allow('enquiries.manage'),
   },
   upload: {
-    staticDir: path.resolve(dirname, '../../data/job-descriptions'),
+    staticDir: localDir(dirname, '../../data/job-descriptions'),
     mimeTypes: [
       'application/pdf',
       'application/msword',

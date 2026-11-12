@@ -17,6 +17,7 @@ import { Applications, Enquiries, JobDescriptions, Resumes } from './collections
 import { Testimonials } from './collections/Testimonials'
 import { Users } from './collections/Users'
 import { Footer, Header, SiteSettings } from './globals'
+import { storagePlugins } from './storage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -102,5 +103,5 @@ export default buildConfig({
   onInit: async (payload) => {
     await runBootstrap(payload)
   },
-  plugins: [],
+  plugins: storagePlugins(),
 })

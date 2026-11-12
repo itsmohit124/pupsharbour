@@ -61,7 +61,11 @@ export const SECTION_GUIDES: Record<string, SectionGuide> = Object.fromEntries([
   guide('richContent', 'Text', 'A heading with paragraphs, optional bullet points and an italic closing line. Use it for stories, introductions and philosophies.', {
     layout: 'Centred, or heading on the left with text on the right.',
   }, 'Home, About, Services, Careers, legal pages'),
-  guide('pillars', 'Pillars', 'Numbered cards for the four strategic pillars (Brand, Marketing, HR, Strategy), each with optional focus areas.', {}, 'Home'),
+  guide('pillars', 'Pillars', 'Numbered cards (two per row) for the four pillars: Trusted to Deliver, The Lighthouse View, Full Sail and Safe Harbour. Each card has a tagline, short intro, bullets and an italic closing line.', {
+    tagline: 'Section: bold line under the headline. Card: short gold line under the pillar title.',
+    bulletsIntro: 'Bold lead-in line above the bullets, e.g. "You can expect:".',
+    closing: 'Italic closing line at the bottom of the card, above a thin divider.',
+  }, 'Home'),
   guide('features', 'Feature grid', 'A grid of icon cards: Why Choose Us, Core Values, Advantages, Why Apply, Why Partner.', {
     columns: 'How many cards per row on large screens.',
     variant: 'Cards, or plain items with the heading on the left.',

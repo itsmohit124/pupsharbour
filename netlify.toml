@@ -1,0 +1,10 @@
+# Netlify build. Env vars (PAYLOAD_SECRET, NEXT_PUBLIC_SERVER_URL, DATABASE_URL, DATABASE_AUTH_TOKEN,
+# S3_*) are set in the Netlify dashboard, never committed. Run `npm run payload migrate` against
+# the Turso database before the first deploy and after every schema change.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NODE_OPTIONS = "--no-deprecation --max-old-space-size=4096"
