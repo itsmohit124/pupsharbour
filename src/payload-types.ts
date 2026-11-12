@@ -392,6 +392,8 @@ export interface Media {
    * Describe the image for screen readers and SEO.
    */
   alt: string;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -716,6 +718,10 @@ export interface PillarsBlock {
          * Italic closing line at the bottom of the card (optional).
          */
         closing?: string | null;
+        /**
+         * Optional background photo for this card. Text turns white over a dark overlay so it stays readable.
+         */
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -817,6 +823,10 @@ export interface FeaturesBlock {
           | null;
         title: string;
         description?: string | null;
+        /**
+         * Optional background photo for this card. Text turns white over a dark overlay so it stays readable.
+         */
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -1014,6 +1024,10 @@ export interface ProcessBlock {
               id?: string | null;
             }[]
           | null;
+        /**
+         * Optional background photo for this card. Text turns white over a dark overlay so it stays readable.
+         */
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -1182,6 +1196,10 @@ export interface ListBlock {
             )
           | null;
         text: string;
+        /**
+         * Optional background photo. Shown only in the "Icon tiles" style.
+         */
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -1257,6 +1275,78 @@ export interface IndustriesBlock {
    * Paragraph directly under the headline.
    */
   intro?: string | null;
+  /**
+   * The industry cards in this section. Leave empty to show the industries from Website → Industries.
+   */
+  cards?:
+    | {
+        /**
+         * Pick from the curated icon set.
+         */
+        icon?:
+          | (
+              | 'anchor'
+              | 'award'
+              | 'badge'
+              | 'boxes'
+              | 'briefcase'
+              | 'building'
+              | 'calculator'
+              | 'calendar'
+              | 'chart'
+              | 'clipboard'
+              | 'compass'
+              | 'crown'
+              | 'eye'
+              | 'factory'
+              | 'document'
+              | 'flag'
+              | 'gauge'
+              | 'gavel'
+              | 'globe'
+              | 'graduation'
+              | 'handshake'
+              | 'hardhat'
+              | 'heart'
+              | 'laptop'
+              | 'layers'
+              | 'lightbulb'
+              | 'pin'
+              | 'megaphone'
+              | 'network'
+              | 'package'
+              | 'palette'
+              | 'puzzle'
+              | 'rocket'
+              | 'scale'
+              | 'scroll'
+              | 'search'
+              | 'settings'
+              | 'shield'
+              | 'cart'
+              | 'sparkles'
+              | 'target'
+              | 'trending'
+              | 'usercheck'
+              | 'usersearch'
+              | 'users'
+              | 'team'
+              | 'wallet'
+              | 'workflow'
+            )
+          | null;
+        title: string;
+        /**
+         * Short description (shown on the detailed cards).
+         */
+        text?: string | null;
+        /**
+         * Optional background photo for this card. Text turns white over a dark overlay so it stays readable.
+         */
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   variant?: ('strip' | 'detailed') | null;
   cta?: {
     label?: string | null;
@@ -1774,6 +1864,10 @@ export interface AudienceSplitBlock {
           label?: string | null;
           href?: string | null;
         };
+        /**
+         * Optional background photo for this card. Text turns white over a dark overlay so it stays readable.
+         */
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -2134,6 +2228,8 @@ export interface Enquiry {
  */
 export interface JobDescription {
   id: number;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -2182,6 +2278,8 @@ export interface Application {
  */
 export interface Resume {
   id: number;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -2574,6 +2672,7 @@ export interface PillarsBlockSelect<T extends boolean = true> {
               id?: T;
             };
         closing?: T;
+        image?: T;
         id?: T;
       };
   settings?:
@@ -2601,6 +2700,7 @@ export interface FeaturesBlockSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         description?: T;
+        image?: T;
         id?: T;
       };
   columns?: T;
@@ -2683,6 +2783,7 @@ export interface ProcessBlockSelect<T extends boolean = true> {
               text?: T;
               id?: T;
             };
+        image?: T;
         id?: T;
       };
   showActivities?: T;
@@ -2758,6 +2859,7 @@ export interface ListBlockSelect<T extends boolean = true> {
     | {
         icon?: T;
         text?: T;
+        image?: T;
         id?: T;
       };
   variant?: T;
@@ -2804,6 +2906,15 @@ export interface IndustriesBlockSelect<T extends boolean = true> {
   heading?: T;
   highlight?: T;
   intro?: T;
+  cards?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        text?: T;
+        image?: T;
+        id?: T;
+      };
   variant?: T;
   cta?:
     | T
@@ -3038,6 +3149,7 @@ export interface AudienceSplitBlockSelect<T extends boolean = true> {
               label?: T;
               href?: T;
             };
+        image?: T;
         id?: T;
       };
   settings?:
@@ -3141,6 +3253,8 @@ export interface TestimonialsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -3220,6 +3334,8 @@ export interface EnquiriesSelect<T extends boolean = true> {
  * via the `definition` "job-descriptions_select".
  */
 export interface JobDescriptionsSelect<T extends boolean = true> {
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -3261,6 +3377,8 @@ export interface ApplicationsSelect<T extends boolean = true> {
  * via the `definition` "resumes_select".
  */
 export interface ResumesSelect<T extends boolean = true> {
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

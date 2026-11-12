@@ -70,3 +70,12 @@ export const orderField: Field = {
   defaultValue: 0,
   admin: { position: 'sidebar', description: 'Lower numbers appear first.' },
 }
+
+/** Optional background photo for a card. The card switches to white text over a dark overlay. */
+export const cardImageField = (name = 'image'): Field => ({
+  name,
+  label: 'Background image',
+  type: 'upload',
+  relationTo: 'media',
+  admin: { description: 'Optional background photo for this card. Text turns white over a dark overlay so it stays readable.' },
+})

@@ -5,10 +5,13 @@ import Link from 'next/link'
 
 import { DashboardMock } from '@/components/illustrations/DashboardMock'
 import { Button, CmsButton } from '@/components/ui/Button'
+import { CardBg } from '@/components/ui/CardBg'
 import { SectionHeading } from '@/components/ui/Heading'
 import { Icon, IconTile, WhatsAppIcon } from '@/components/ui/Icon'
 import { isDark, Section } from '@/components/ui/Section'
+import { slugify } from '@/fields/common'
 import { getInsights, phoneFor, whatsappHref, type SiteData } from '@/lib/data'
+import { mediaOf } from '@/lib/media'
 import type {
   AudienceSplitBlock,
   ContactInfoBlock,
@@ -147,21 +150,38 @@ export function ServicesDetail({ block, ctx }: { block: ServicesDetailBlock; ctx
   )
 }
 
+type IndustryCard = { key: string; slug: string; title: string; icon?: string | null; text?: string | null; image: Media | null }
+
+/** Cards set on this section win; with none set, fall back to the Industries collection. */
+function industryCards(block: IndustriesBlock, ctx: SiteData): IndustryCard[] {
+  if (block.cards?.length) {
+    return block.cards.map((c, n) => ({
+      key: c.id ?? `${n}-${c.title}`,
+      slug: slugify(c.title),
+      title: c.title,
+      icon: c.icon,
+      text: c.text,
+      image: mediaOf(c.image),
+    }))
+  }
+  return ctx.industries.map((i) => ({ key: String(i.id), slug: i.slug, title: i.title, icon: i.icon, text: i.summary, image: mediaOf(i.image) }))
+}
+
 export function Industries({ block, ctx }: { block: IndustriesBlock; ctx: SiteData }) {
   const detailed = block.variant === 'detailed'
+  const cards = industryCards(block, ctx)
   if (detailed) {
     return (
       <Section settings={block.settings}>
         <SectionHeading eyebrow={block.eyebrow} heading={block.heading} highlight={block.highlight} intro={block.intro} align="center" />
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {ctx.industries.map((i) => {
-            const img = typeof i.image === 'object' ? (i.image as Media | null) : null
+          {cards.map((i) => {
             return (
-              <li key={i.id} id={i.slug} className="overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-plum-100">
-                <IndustryVisual title={i.title} icon={i.icon} image={img} />
+              <li key={i.key} id={i.slug} className="overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-plum-100">
+                <IndustryVisual title={i.title} icon={i.icon} image={i.image} />
                 <div className="p-6">
                   <h2 className="text-lg font-semibold text-plum-900">{i.title}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{i.summary}</p>
+                  {i.text && <p className="mt-2 text-sm leading-relaxed text-muted">{i.text}</p>}
                   <Link href={`/contact?industry=${encodeURIComponent(i.title)}#enquiry`} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-plum-800 hover:text-plum-600">
                     Discuss your requirements <ArrowRight aria-hidden className="size-4" />
                   </Link>
@@ -184,12 +204,11 @@ export function Industries({ block, ctx }: { block: IndustriesBlock; ctx: SiteDa
           <CmsButton link={block.cta} variant="outlineLight" arrow className="mt-8" />
         </div>
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:col-span-9 lg:grid-cols-6">
-          {ctx.industries.map((i) => {
-            const img = typeof i.image === 'object' ? (i.image as Media | null) : null
+          {cards.map((i) => {
             return (
-              <li key={i.id}>
+              <li key={i.key}>
                 <Link href={`/industries#${i.slug}`} className="group block overflow-hidden rounded-xl ring-1 ring-white/15 transition hover:ring-gold-400">
-                  <IndustryVisual title={i.title} icon={i.icon} image={img} tall />
+                  <IndustryVisual title={i.title} icon={i.icon} image={i.image} tall />
                 </Link>
               </li>
             )
@@ -266,7 +285,7 @@ export function Testimonials({ block, ctx }: { block: TestimonialsBlock; ctx: Si
       <SectionHeading eyebrow={block.eyebrow} heading={block.heading} highlight={block.highlight} intro={block.intro} dark={dark} align="center" />
       <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {ctx.testimonials.map((t) => {
-          const photo = typeof t.photo === 'object' ? (t.photo as Media | null) : null
+          const photo = mediaOf(t.photo)
           return (
             <li key={t.id} className={clsx('flex flex-col rounded-2xl p-7', dark ? 'bg-white/5 ring-1 ring-white/10' : 'bg-white shadow-card ring-1 ring-plum-100')}>
               <Quote aria-hidden className="size-8 text-gold-500" />
@@ -302,7 +321,7 @@ export async function InsightsList({ block }: { block: InsightsListBlock }) {
       <SectionHeading eyebrow={block.eyebrow} heading={block.heading} highlight={block.highlight} intro={block.intro} align="center" />
       <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((p) => {
-          const cover = typeof p.cover === 'object' ? (p.cover as Media | null) : null
+          const cover = mediaOf(p.cover)
           return (
             <li key={p.id}>
               <Link href={`/insights/${p.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-plum-100 transition hover:-translate-y-1">
@@ -414,36 +433,40 @@ export function AudienceSplit({ block, ctx }: { block: AudienceSplitBlock; ctx: 
       <ul className={clsx('mt-10 grid gap-6', cards.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2')}>
         {cards.map((c, i) => {
           const phone = phoneFor(ctx.settings, c.phone)
-          const featured = i === 0
+          const img = mediaOf(c.image)
+          const featured = i === 0 || !!img // plum card with white text (first card, or any card with a photo)
           return (
             <li
               key={c.id ?? c.title}
               className={clsx(
-                'flex flex-col rounded-3xl p-8',
+                'relative flex flex-col overflow-hidden rounded-3xl p-8',
                 featured ? 'bg-plum-900 text-white shadow-2xl' : dark ? 'bg-white/5 ring-1 ring-white/10' : 'bg-white shadow-card ring-1 ring-plum-100',
               )}
             >
-              <IconTile name={c.icon} dark={featured || dark} />
-              {c.eyebrow && <p className={clsx('mt-5 text-xs font-semibold tracking-[0.18em] uppercase', featured ? 'text-gold-400' : 'text-plum-700')}>{c.eyebrow}</p>}
-              <h3 className={clsx('mt-2 font-display text-2xl font-semibold', featured ? 'text-white' : 'text-plum-900')}>{c.title}</h3>
-              {c.text && <p className={clsx('mt-3 leading-relaxed', featured ? 'text-white/80' : 'text-muted')}>{c.text}</p>}
-              {!!c.bullets?.length && (
-                <ul className="mt-4 space-y-2 text-sm">
-                  {c.bullets.map((b) => (
-                    <li key={b.id ?? b.text} className="flex gap-2">
-                      <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-gold-500" />
-                      {b.text}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <div className="mt-auto flex flex-wrap items-center gap-4 pt-6">
-                <CmsButton link={c.cta} variant={featured ? 'gold' : 'plum'} arrow />
-                {phone && (
-                  <a href={phone.href} className={clsx('inline-flex items-center gap-2 text-sm font-semibold', featured ? 'text-white hover:text-gold-400' : 'text-plum-800 hover:text-plum-600')}>
-                    <Phone aria-hidden className="size-4" /> {phone.label}
-                  </a>
+              <CardBg image={img} sizes="(min-width: 768px) 50vw, 100vw" />
+              <div className="relative flex flex-1 flex-col">
+                <IconTile name={c.icon} dark={featured || dark} />
+                {c.eyebrow && <p className={clsx('mt-5 text-xs font-semibold tracking-[0.18em] uppercase', featured ? 'text-gold-400' : 'text-plum-700')}>{c.eyebrow}</p>}
+                <h3 className={clsx('mt-2 font-display text-2xl font-semibold', featured ? 'text-white' : 'text-plum-900')}>{c.title}</h3>
+                {c.text && <p className={clsx('mt-3 leading-relaxed', featured ? 'text-white/80' : 'text-muted')}>{c.text}</p>}
+                {!!c.bullets?.length && (
+                  <ul className="mt-4 space-y-2 text-sm">
+                    {c.bullets.map((b) => (
+                      <li key={b.id ?? b.text} className="flex gap-2">
+                        <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-gold-500" />
+                        {b.text}
+                      </li>
+                    ))}
+                  </ul>
                 )}
+                <div className="mt-auto flex flex-wrap items-center gap-4 pt-6">
+                  <CmsButton link={c.cta} variant={featured ? 'gold' : 'plum'} arrow />
+                  {phone && (
+                    <a href={phone.href} className={clsx('inline-flex items-center gap-2 text-sm font-semibold', featured ? 'text-white hover:text-gold-400' : 'text-plum-800 hover:text-plum-600')}>
+                      <Phone aria-hidden className="size-4" /> {phone.label}
+                    </a>
+                  )}
+                </div>
               </div>
             </li>
           )

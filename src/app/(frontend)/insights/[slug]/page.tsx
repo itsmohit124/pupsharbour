@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getInsight } from '@/lib/data'
-import type { Media } from '@/payload-types'
+import { mediaOf } from '@/lib/media'
 
 type Props = { params: Promise<{ slug: string }> }
 export const revalidate = 3600
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function InsightPage({ params }: Props) {
   const post = await getInsight((await params).slug)
   if (!post) notFound()
-  const cover = typeof post.cover === 'object' ? (post.cover as Media | null) : null
+  const cover = mediaOf(post.cover)
   return (
     <article>
       <header className="bg-plum-950 text-white">

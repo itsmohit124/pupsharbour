@@ -37,6 +37,7 @@ const COMMON: Record<string, string> = {
   submitLabel: 'Text on the submit button.',
   successMessage: 'Message the visitor sees after submitting.',
   note: 'Small italic note.',
+  image: 'Optional background photo for this card. The card turns dark with white text so it stays readable.',
   closing: 'Emphasised closing line in italics.',
 }
 
@@ -97,7 +98,9 @@ export const SECTION_GUIDES: Record<string, SectionGuide> = Object.fromEntries([
     missionHeading: 'Title of the mission card.',
     mission: 'Mission bullet points.',
   }, 'About'),
-  guide('industries', 'Industries', 'Industry cards. The industries come from the Industries collection (add photos there).', {
+  guide('industries', 'Industries', 'Industry cards with an icon, title, short text and optional background photo. Edit the cards right here under "Industry cards"; if that list is empty, the industries from Website → Industries are shown instead.', {
+    cards: 'The industry cards, in order. Drag to reorder, use ⋯ to duplicate or remove.',
+    text: 'Short description under the industry title (shown on the detailed cards).',
     variant: 'Image strip (dark, compact) or detailed cards with descriptions.',
   }, 'Home, Industries'),
   guide('liveDemo', 'Live demo', 'Text and module list next to an illustrative HR dashboard (laptop mock-up).', {

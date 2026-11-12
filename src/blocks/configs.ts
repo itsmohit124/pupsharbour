@@ -8,7 +8,7 @@
  */
 import type { Block, Field } from 'payload'
 
-import { iconField, linkField } from '@/fields/common'
+import { cardImageField, iconField, linkField } from '@/fields/common'
 
 const sectionSettings: Field = {
   name: 'settings',
@@ -97,7 +97,7 @@ const block = (slug: string, label: string, fields: Field[], plural?: string): B
   ],
 })
 
-const iconItems = (name: string, label: string, withDescription = true): Field => ({
+const iconItems = (name: string, label: string, withDescription = true, withImage = false): Field => ({
   name,
   label,
   type: 'array',
@@ -108,6 +108,7 @@ const iconItems = (name: string, label: string, withDescription = true): Field =
       fields: [iconField(), { name: 'title', type: 'text', required: true }],
     },
     ...(withDescription ? [{ name: 'description', type: 'textarea' } as Field] : []),
+    ...(withImage ? [cardImageField()] : []),
   ],
 })
 
@@ -213,6 +214,7 @@ export const Pillars = block('pillars', 'Pillars', [
         fields: [{ name: 'text', type: 'text', required: true }],
       },
       { name: 'closing', type: 'text', admin: { description: 'Italic closing line at the bottom of the card (optional).' } },
+      cardImageField(),
     ],
   },
 ])
@@ -245,13 +247,14 @@ export const AudienceSplit = block('audienceSplit', 'Audience choice (Employer /
         ],
       },
       linkField('cta', 'Button'),
+      cardImageField(),
     ],
   },
 ])
 
 export const Features = block('features', 'Feature grid', [
   ...heading(),
-  iconItems('items', 'Features'),
+  iconItems('items', 'Features', true, true),
   {
     name: 'columns',
     type: 'select',
@@ -293,6 +296,7 @@ export const Process = block('process', 'Process steps', [
       { type: 'row', fields: [iconField(), { name: 'title', type: 'text', required: true }, { name: 'subtitle', type: 'text' }] },
       { name: 'description', type: 'textarea' },
       { name: 'activities', type: 'array', fields: [{ name: 'text', type: 'text', required: true }] },
+      cardImageField(),
     ],
   },
   { name: 'showActivities', type: 'checkbox', defaultValue: false },
@@ -320,7 +324,15 @@ export const Packages = block('packages', 'Engagement packages', [
 
 export const List = block('list', 'Simple list', [
   ...heading(),
-  { name: 'items', type: 'array', fields: [iconField(), { name: 'text', type: 'text', required: true }] },
+  {
+    name: 'items',
+    type: 'array',
+    fields: [
+      iconField(),
+      { name: 'text', type: 'text', required: true },
+      { ...cardImageField(), admin: { description: 'Optional background photo. Shown only in the "Icon tiles" style.' } } as Field,
+    ],
+  },
   {
     name: 'variant',
     type: 'select',
@@ -342,6 +354,20 @@ export const VisionMission = block('visionMission', 'Vision & mission', [
 
 export const Industries = block('industries', 'Industries', [
   ...heading(),
+  {
+    name: 'cards',
+    label: 'Industry cards',
+    type: 'array',
+    admin: {
+      initCollapsed: true,
+      description: 'The industry cards in this section. Leave empty to show the industries from Website → Industries.',
+    },
+    fields: [
+      { type: 'row', fields: [iconField(), { name: 'title', type: 'text', required: true }] },
+      { name: 'text', type: 'textarea', admin: { description: 'Short description (shown on the detailed cards).' } },
+      cardImageField(),
+    ],
+  },
   {
     name: 'variant',
     type: 'select',

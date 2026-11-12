@@ -4,10 +4,11 @@ import Image from 'next/image'
 import { LighthouseScene } from '@/components/illustrations/LighthouseScene'
 import { CmsButton } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
-import type { HeroBlock, Media, PageHeaderBlock, StatsBlock } from '@/payload-types'
+import { mediaOf } from '@/lib/media'
+import type { HeroBlock, PageHeaderBlock, StatsBlock } from '@/payload-types'
 
 export function Hero({ block }: { block: HeroBlock }) {
-  const image = typeof block.image === 'object' ? (block.image as Media | null) : null
+  const image = mediaOf(block.image)
   return (
     <section
       id={block.settings?.anchorId || undefined}
