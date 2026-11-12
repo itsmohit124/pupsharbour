@@ -1,8 +1,11 @@
 # Netlify build. Env vars (PAYLOAD_SECRET, NEXT_PUBLIC_SERVER_URL, DATABASE_URL, DATABASE_AUTH_TOKEN,
-# S3_*) are set in the Netlify dashboard, never committed. Run `npm run payload migrate` against
-# the Turso database before the first deploy and after every schema change.
+# S3_*) are set in the Netlify dashboard, never committed.
+# Migrations run first, so the Turso schema always matches the code being built: pages are
+# prerendered during `next build` and query the new tables. `payload migrate` only applies
+# migrations that have not run yet, and a failed migration fails the build (the live site keeps
+# serving the previous deploy).
 [build]
-  command = "npm run build"
+  command = "npm run payload migrate && npm run build"
   publish = ".next"
 
 [build.environment]
